@@ -1,3 +1,14 @@
+package menu;
+
+import model.Ator;
+import model.Diretor;
+import model.Filme;
+import repository.FilmeFileRepository;
+import service.AtorService;
+import service.DiretorService;
+import service.FilmeService;
+
+import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
@@ -22,9 +33,10 @@ public class Menu {
             System.out.println("1 - Cadastrar Ator");
             System.out.println("2 - Cadastrar Diretor");
             System.out.println("3 - Cadastrar Filme");
-            System.out.println("4 - Associar Diretor a Filme");
-            System.out.println("5 - Associar Ator a Filme");
+            System.out.println("4 - Associar Diretor a model.Filme");
+            System.out.println("5 - Associar Ator a model.Filme");
             System.out.println("6 - Buscar Filme por Nome");
+            System.out.println("7 - Listar todos os Filmes Cadastrados");
             System.out.println("0 - Sair");
 
             System.out.print("Escolha uma opção: ");
@@ -49,6 +61,9 @@ public class Menu {
                     break;
                 case 6:
                     buscarFilme();
+                    break;
+                case 7:
+                    listarFilmes();
                     break;
                 case 0:
                     System.out.println("Encerrando...");
@@ -75,7 +90,7 @@ public class Menu {
         Ator ator = new Ator(nome, data, nacionalidade, genero);
         atorService.cadastrarAtor(ator);
 
-        System.out.println("Ator cadastrado com sucesso!");
+        System.out.println("model.Ator cadastrado com sucesso!");
     }
 
     private void cadastrarDiretor() {
@@ -94,7 +109,7 @@ public class Menu {
         Diretor diretor = new Diretor(nome, data, nacionalidade, estilo);
         diretorService.cadastrarDiretor(diretor);
 
-        System.out.println("Diretor cadastrado com sucesso!");
+        System.out.println("model.Diretor cadastrado com sucesso!");
     }
 
     private void cadastrarFilme() {
@@ -114,7 +129,7 @@ public class Menu {
         Filme filme = new Filme(nome, data, orcamento, descricao);
         filmeService.cadastrarFilme(filme);
 
-        System.out.println("Filme cadastrado com sucesso!");
+        System.out.println("model.Filme cadastrado com sucesso!");
     }
 
     private void associarDiretor() {
@@ -124,7 +139,7 @@ public class Menu {
         Filme filme = filmeService.pesquisarFilmePorNome(nomeFilme);
 
         if (filme == null) {
-            System.out.println("Filme não encontrado!");
+            System.out.println("model.Filme não encontrado!");
             return;
         }
 
@@ -134,12 +149,12 @@ public class Menu {
         Diretor diretor = diretorService.buscarDiretorPorNome(nomeDiretor);
 
         if (diretor == null) {
-            System.out.println("Diretor não encontrado!");
+            System.out.println("model.Diretor não encontrado!");
             return;
         }
 
         filmeService.associarDiretorAoFilme(filme, diretor);
-        System.out.println("Diretor associado com sucesso!");
+        System.out.println("model.Diretor associado com sucesso!");
     }
 
     private void associarAtor() {
@@ -149,7 +164,7 @@ public class Menu {
         Filme filme = filmeService.pesquisarFilmePorNome(nomeFilme);
 
         if (filme == null) {
-            System.out.println("Filme não encontrado!");
+            System.out.println("model.Filme não encontrado!");
             return;
         }
 
@@ -159,12 +174,12 @@ public class Menu {
         Ator ator = atorService.buscarAtorPorNome(nomeAtor);
 
         if (ator == null) {
-            System.out.println("Ator não encontrado!");
+            System.out.println("model.Ator não encontrado!");
             return;
         }
 
         filmeService.associarAtorAoFilme(filme, ator);
-        System.out.println("Ator associado com sucesso!");
+        System.out.println("model.Ator associado com sucesso!");
     }
 
     private void buscarFilme() {
@@ -177,7 +192,25 @@ public class Menu {
             System.out.println("\n=== FILME ENCONTRADO ===");
             System.out.println(filme.exibirDetalhes());
         } else {
-            System.out.println("Filme não encontrado!");
+            System.out.println("model.Filme não encontrado!");
         }
     }
-}
+//    private void listarFilmes() {
+//        System.out.println("\n=== LISTA DE FILMES ===");
+//        List<Filme> filmes = FilmeFileRepository.buscarTodos();
+//
+//        for (Filme f : filmes) {
+//            System.out.println(f.getNome());
+//        }
+        private void listarFilmes() {
+            System.out.println("\n=== LISTA DE FILMES ===");
+
+            List<Filme> filmes = filmeService.listarFilmes();
+
+            for (Filme f : filmes) {
+                System.out.println(f.getNome());
+            }
+        }
+
+    }
+

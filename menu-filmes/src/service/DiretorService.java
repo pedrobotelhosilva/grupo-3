@@ -1,3 +1,7 @@
+package service;
+
+import model.Diretor;
+
 import java.util.ArrayList;
 import java.util.List;
 

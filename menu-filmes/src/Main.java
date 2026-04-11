@@ -1,3 +1,8 @@
+import menu.Menu;
+import service.AtorService;
+import service.DiretorService;
+import service.FilmeService;
+
 public class Main {
     public static void main(String[] args) {
 

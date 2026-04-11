@@ -1,3 +1,7 @@
+package service;
+
+import model.Ator;
+
 import java.util.ArrayList;
 import java.util.List;
 

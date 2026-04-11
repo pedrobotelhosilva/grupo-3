@@ -1,7 +1,13 @@
+package model;
+
 public abstract class Pessoa {
     private String nome;
     private String dataNascimento;
     private String nacionalidade;
+
+    public Pessoa(String nome){
+        this .nome = nome;
+    }
 
     public Pessoa(String nome, String dataNascimento, String nacionalidade) {
         this.nome = nome;
