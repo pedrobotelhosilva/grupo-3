@@ -16,7 +16,7 @@ public class FilmeFileRepository {
 
         InputStream is = FilmeFileRepository.class
                 .getClassLoader()
-                .getResourceAsStream("filmes.txt");
+                .getResourceAsStream(FILE_NAME);
 
         if (is == null) {
             System.out.println("Arquivo filmes.txt não encontrado!");
