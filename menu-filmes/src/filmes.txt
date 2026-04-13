@@ -13,4 +13,3 @@ Jurassic Park;1993;63000000;Parque com dinossauros clonados;Steven Spielberg;Sam
 Star Wars Uma Nova Esperanca;1977;11000000;Rebelião contra império galáctico;George Lucas;Mark Hamill,Harrison Ford
 Pantera Negra;2018;200000000;Rei de Wakanda protege seu povo;Ryan Coogler;Chadwick Boseman,Michael B Jordan
 Duna;2021;165000000;Disputa por planeta desértico e especiaria;Denis Villeneuve;Timothee Chalamet,Zendaya
-

@@ -47,6 +47,7 @@ public class FilmeFileRepository {
                 filme.setAtores(atores);
 
                 filmes.add(filme);
+
             }
 
 
@@ -55,5 +56,37 @@ public class FilmeFileRepository {
         }
 
         return filmes;
+    }
+
+    public static Filme adicionarFilme(Filme filme) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_NAME, true))) {
+            StringBuilder sb = new StringBuilder();
+            sb.append(filme.getNome()).append(";");
+            sb.append(filme.getDataLancamento()).append(";");
+            sb.append(filme.getOrcamento()).append(";");
+            sb.append(filme.getDescricao()).append(";");
+            //sb.append(filme.getDiretor().getNome()).append(";");
+
+//            List<Ator> atores = filme.getAtores();
+//            for (int i = 0; i < atores.size(); i++) {
+//                sb.append(atores.get(i).getNome());
+//                if (i < atores.size() - 1) {
+//                    sb.append(",");
+//                }
+//            }
+            sb.append("\n");
+
+            bw.write(sb.toString());
+            bw.flush();
+            //Teste caminho do arquivo funcionando. Verificar porquê não está gravando os dados
+            // System.out.println("Conteúdo a gravar: " + sb.toString());
+            bw.write(sb.toString());
+
+        } catch (IOException e) {
+            System.out.println("Erro ao escrever no arquivo");
+            e.printStackTrace();
+        }
+
+        return filme;
     }
 }
