@@ -1,5 +1,12 @@
+package service;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import model.Ator;
+import model.Diretor;
+import model.Filme;
+import repository.FilmeFileRepository;
 
 public class FilmeService {
     private List<Filme> filmes;
@@ -14,18 +21,21 @@ public class FilmeService {
         }
     }
 
+
     public List<Filme> listarFilmes() {
-        return filmes;
+        return FilmeFileRepository.buscarTodos();
     }
 
+
     public Filme pesquisarFilmePorNome(String nome) {
-        for (Filme filme : filmes) {
+        for (Filme filme : FilmeFileRepository.buscarTodos()) {
             if (filme.getNome().equalsIgnoreCase(nome)) {
                 return filme;
             }
         }
         return null;
     }
+
 
     public void associarDiretorAoFilme(Filme filme, Diretor diretor) {
         if (filme != null && diretor != null) {

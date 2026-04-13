@@ -1,10 +1,18 @@
+package model;
+
 public class Diretor extends Pessoa {
     private String estiloDirecao;
+
+    public Diretor(String nome) {
+        super(nome);
+    }
+
 
     public Diretor(String nome, String dataNascimento, String nacionalidade, String estiloDirecao) {
         super(nome, dataNascimento, nacionalidade);
         this.estiloDirecao = estiloDirecao;
     }
+
 
     public String getEstiloDirecao() {
         return estiloDirecao;
@@ -16,7 +24,7 @@ public class Diretor extends Pessoa {
 
     @Override
     public String exibirInformacoes() {
-        return "Diretor: " + getNome() +
+        return "model.Diretor: " + getNome() +
                 " | Data de nascimento: " + getDataNascimento() +
                 " | Nacionalidade: " + getNacionalidade() +
                 " | Estilo de direção: " + estiloDirecao;

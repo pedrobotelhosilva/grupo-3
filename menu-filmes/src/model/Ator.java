@@ -1,10 +1,18 @@
+package model;
+
 public class Ator extends Pessoa {
     private String generoArtistico;
+
+
+    public Ator(String nome) {
+        super(nome);
+    }
 
     public Ator(String nome, String dataNascimento, String nacionalidade, String generoArtistico) {
         super(nome, dataNascimento, nacionalidade);
         this.generoArtistico = generoArtistico;
     }
+
 
     public String getGeneroArtistico() {
         return generoArtistico;
@@ -16,7 +24,7 @@ public class Ator extends Pessoa {
 
     @Override
     public String exibirInformacoes() {
-        return "Ator: " + getNome() +
+        return "model.Ator: " + getNome() +
                 " | Data de nascimento: " + getDataNascimento() +
                 " | Nacionalidade: " + getNacionalidade() +
                 " | Gênero artístico: " + generoArtistico;

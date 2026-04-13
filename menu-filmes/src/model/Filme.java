@@ -1,3 +1,5 @@
+package model;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,6 +63,8 @@ public class Filme {
         return atores;
     }
 
+    public void setAtores(List<Ator> atores) {this.atores = atores;}
+
     public void adicionarAtor(Ator ator) {
         if (ator != null) {
             atores.add(ator);
@@ -86,16 +90,18 @@ public class Filme {
             }
         }
 
-        return "Filme: " + nome +
+        return "model.Filme: " + nome +
                 "\nData de lançamento: " + dataLancamento +
                 "\nOrçamento: " + orcamento +
                 "\nDescrição: " + descricao +
-                "\nDiretor: " + nomeDiretor +
+                "\nmodel.Diretor: " + nomeDiretor +
                 "\nAtores: " + nomesAtores;
     }
 
     @Override
     public String toString() {
-        return "Filme: " + nome + " | Lançamento: " + dataLancamento;
+        return "model.Filme: " + nome + " | Lançamento: " + dataLancamento;
     }
+
+
 }
