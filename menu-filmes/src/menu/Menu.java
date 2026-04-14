@@ -7,6 +7,7 @@ import repository.FilmeFileRepository;
 import service.AtorService;
 import service.DiretorService;
 import service.FilmeService;
+import utils.Check;
 
 import java.util.List;
 import java.util.Scanner;
@@ -80,6 +81,11 @@ public class Menu {
 
         System.out.print("Data de nascimento: ");
         String data = scanner.nextLine();
+
+        //***TESTE***
+        if (!Check.validate(data))
+          System.out.println("Errado ai meu chef");
+        //***********
 
         System.out.print("Nacionalidade: ");
         String nacionalidade = scanner.nextLine();
