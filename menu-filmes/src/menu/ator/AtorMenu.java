@@ -12,6 +12,7 @@ import validation.ator.AtorValidation;
 public final class AtorMenu
 {
   private AtorService atorService;
+  private Scanner     scanner;
 
   public AtorMenu(Scanner scanner, AtorService atorService)
   {
@@ -19,7 +20,7 @@ public final class AtorMenu
 	this.atorService = atorService;
   }
 
-  private void cadastrarAtor()
+  public void cadastrarAtor()
   {
     String nome;
     String data;
@@ -50,6 +51,7 @@ public final class AtorMenu
       return;
     }
 
+    /*
     System.out.print("Gênero artístico: ");
     genero = scanner.nextLine();
     if (!AtorValidation.validateGeneroArtistico(genero))
@@ -58,8 +60,9 @@ public final class AtorMenu
       return;
     }
 
-    Ator ator = new Ator(nome, data, nacionalidade, genero);
-    AtorUtils.normalize(ator);
+    */
+
+    Ator ator = new Ator(nome, data, nacionalidade, " "); // genero vazio por enquanto (irei repensar os atributos do ator)
     atorService.cadastrarAtor(ator);
 
     System.out.println("Ator cadastrado com sucesso!");

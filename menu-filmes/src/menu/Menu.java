@@ -7,7 +7,7 @@ import repository.FilmeFileRepository;
 import service.AtorService;
 import service.DiretorService;
 import service.FilmeService;
-import utils.Check;
+import menu.ator.AtorMenu;
 
 import java.util.List;
 import java.util.Scanner;
@@ -18,12 +18,14 @@ public class Menu {
     private AtorService atorService;
     private DiretorService diretorService;
     private FilmeService filmeService;
+    private AtorMenu  atorMenu; // implement-AtorUtils
 
     public Menu(AtorService atorService, DiretorService diretorService, FilmeService filmeService) {
         this.scanner = new Scanner(System.in);
         this.atorService = atorService;
         this.diretorService = diretorService;
         this.filmeService = filmeService;
+        this.atorMenu = new AtorMenu(this.scanner, this.atorService); // implement-AtorUtils
     }
 
     public void exibirMenu() {
@@ -76,14 +78,13 @@ public class Menu {
     }
 
     private void cadastrarAtor() {
-        System.out.print("Nome: ");
+/*        System.out.print("Nome: ");
         String nome = scanner.nextLine();
 
         System.out.print("Data de nascimento: ");
         String data = scanner.nextLine();
 
 ////////////////////////////////////////////////////////////////////////
-/////***********************TESTE*********************************/////
 //////////////////////////////////////////////////////////////////////
 ////////if (!Check.validate(data))///////////////////////////////////
 //////////System.out.println("Errado ai meu chef");/////////////////
@@ -100,6 +101,9 @@ public class Menu {
         atorService.cadastrarAtor(ator);
 
         System.out.println("model.Ator cadastrado com sucesso!");
+    */
+      atorMenu.cadastrarAtor();   
+      
     }
 
     private void cadastrarDiretor() {
