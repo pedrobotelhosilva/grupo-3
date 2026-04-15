@@ -135,8 +135,21 @@ public class Menu {
         System.out.print("Descrição: ");
         String descricao = scanner.nextLine();
 
+//        //adicionar depois
+//        System.out.print("Diretor (opcional, deixe em branco para nenhum): ");
+//        String nomeDiretor = scanner.nextLine();
+//        Diretor diretor = null;
+//
+//
+//        System.out.println("Digite os nomes dos atores (opcional. Use ; se + de um): ");
+//        String nomesAtores = scanner.nextLine();
+//        List<Ator> atores = null;
+//
+
         Filme filme = new Filme(nome, data, orcamento, descricao);
         filmeService.cadastrarFilme(filme);
+
+
 
         System.out.println("model.Filme cadastrado com sucesso!");
     }
