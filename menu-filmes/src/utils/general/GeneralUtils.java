@@ -1,7 +1,16 @@
-package utils;
+package utils.general;
 
-public class Utils
+public final class GeneralUtils
 {
+	private GeneralUtils()
+	{
+	}
+
+	public static boolean isNullOrBlank(String str)
+	{
+		return (str == null || str.trim().isEmpty());
+	}
+
 	public static int countSeparator(String str, char separator)
 	{
 		int count;
