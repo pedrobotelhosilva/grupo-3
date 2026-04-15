@@ -1,7 +1,7 @@
 package utils.ator;
 
 import model.Ator;
-import validation.AtorValidation;
+import validation.ator.AtorValidation;
 
 public final class AtorUtils
 {
