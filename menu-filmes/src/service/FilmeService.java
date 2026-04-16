@@ -9,16 +9,11 @@ import model.Filme;
 import repository.FilmeFileRepository;
 
 public class FilmeService {
-//    private List<Filme> filmes;
-//
-//    public FilmeService() {
-//        this.filmes = new ArrayList<>();
-//    }
 
     public void cadastrarFilme(Filme filme) {
         if (filme != null) {
             FilmeFileRepository.adicionarFilme(filme);
-            //filmes.add(filme);
+
         }
     }
 

@@ -34,19 +34,19 @@ public class FilmeFileRepository {
                 String dataLancamento = partes[1];
                 double orcamento = Double.parseDouble(partes[2]);
                 String descricao = partes[3];
-                //Diretor diretor = new Diretor(partes[4]);
+                Diretor diretor = new Diretor(partes[4]);
 
-//                String[] nomesAtores = partes[5].split(",");
-//                List<Ator> atores = new ArrayList<>();
+                String[] nomesAtores = partes[5].split(",");
+                List<Ator> atores = new ArrayList<>();
 
-//                for (String nomeAtor : nomesAtores) {
-//                    atores.add(new Ator(nomeAtor.trim()));
-//                }
+                for (String nomeAtor : nomesAtores) {
+                    atores.add(new Ator(nomeAtor.trim()));
+                }
 
                 // criar objeto filme
                 Filme filme = new Filme(nome, dataLancamento, orcamento, descricao);
-                //filme.setDiretor(diretor);
-               // filme.setAtores(atores);
+                filme.setDiretor(diretor);
+                filme.setAtores(atores);
 
                 filmes.add(filme);
             }
@@ -78,15 +78,23 @@ public class FilmeFileRepository {
             sb.append(filme.getDataLancamento()).append(";");
             sb.append(filme.getOrcamento()).append(";");
             sb.append(filme.getDescricao()).append(";");
-            //sb.append(filme.getDiretor().getNome()).append(";");
+            String nomeDiretor = (filme.getDiretor() != null)
+                    ? filme.getDiretor().getNome() + ";"
+                    : "Não informado";
 
-//            List<Ator> atores = filme.getAtores();
-//            for (int i = 0; i < atores.size(); i++) {
-//                sb.append(atores.get(i).getNome());
-//                if (i < atores.size() - 1) {
-//                    sb.append(",");
-//                }
-//            }
+            List<Ator> atores = filme.getAtores();
+
+            if (atores != null && !atores.isEmpty()) {
+                for (int i = 0; i < atores.size(); i++) {
+                    sb.append(atores.get(i).getNome());
+
+                    if (i < atores.size() - 1) {
+                        sb.append(",");
+                    }
+                }
+            } else {
+                sb.append("Nenhum ator");
+            }
             sb.append("\n");
 
             bw.write(sb.toString());

@@ -1,6 +1,8 @@
 package service;
 
 import model.Diretor;
+import repository.DiretorFileRepository;
+import repository.FilmeFileRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,12 +16,13 @@ public class DiretorService {
 
     public void cadastrarDiretor(Diretor diretor) {
         if (diretor != null) {
-            diretores.add(diretor);
+            DiretorFileRepository.adicionarDiretor(diretor);
+            //diretores.add(diretor);
         }
     }
 
     public List<Diretor> listarDiretores() {
-        return diretores;
+        return DiretorFileRepository.buscarTodos();
     }
 
     public Diretor buscarDiretorPorNome(String nome) {
