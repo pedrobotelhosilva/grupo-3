@@ -1,6 +1,8 @@
 package service;
 
 import model.Ator;
+import repository.AtorFileRepository;
+import repository.FilmeFileRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,12 +16,13 @@ public class AtorService {
 
     public void cadastrarAtor(Ator ator) {
         if (ator != null) {
-            atores.add(ator);
+            AtorFileRepository.adicionarAtor(ator);
+           // atores.add(ator);
         }
     }
 
     public List<Ator> listarAtores() {
-        return atores;
+        return AtorFileRepository.buscarTodos();
     }
 
     public Ator buscarAtorPorNome(String nome) {

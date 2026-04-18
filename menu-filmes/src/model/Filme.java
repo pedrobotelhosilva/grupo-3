@@ -19,6 +19,15 @@ public class Filme {
         this.atores = new ArrayList<>();
     }
 
+    public Filme(String nome, String data, double orcamento, String descricao, Diretor diretor, List<Ator> atores) {
+        this.nome = nome;
+        this.dataLancamento = data;
+        this.orcamento = orcamento;
+        this.descricao = descricao;
+        this.diretor = diretor;
+        this.atores = atores != null ? atores : new ArrayList<>();
+    }
+
     public String getNome() {
         return nome;
     }
