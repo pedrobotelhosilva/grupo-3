@@ -24,7 +24,6 @@ public class FilmeFileRepository {
                 String[] partes = linha.split(";");
 
 
-
                 if (partes.length < 6) {
                     System.out.println("Linha incompleta: " + linha);
                     continue;
@@ -61,11 +60,6 @@ public class FilmeFileRepository {
     }
 
 
-
-
-
-
-
     public static Filme adicionarFilme(Filme filme) {
         File file = new File("filmes.txt");
 
@@ -78,9 +72,12 @@ public class FilmeFileRepository {
             sb.append(filme.getDataLancamento()).append(";");
             sb.append(filme.getOrcamento()).append(";");
             sb.append(filme.getDescricao()).append(";");
+
             String nomeDiretor = (filme.getDiretor() != null)
-                    ? filme.getDiretor().getNome() + ";"
+                    ? filme.getDiretor().getNome()
                     : "Não informado";
+
+            sb.append(nomeDiretor).append(";");
 
             List<Ator> atores = filme.getAtores();
 
@@ -112,4 +109,60 @@ public class FilmeFileRepository {
 
         return filme;
     }
+
+    public static Filme atualizarFilme(Filme filme) {
+        List<Filme> filmes = buscarTodos();
+
+        try {
+            File file = new File("filmes.txt");
+            BufferedWriter bw = new BufferedWriter(new FileWriter(file, false)); // false = overwrite
+
+            for (Filme f : filmes) {
+                if (f.getNome().equalsIgnoreCase(filme.getNome())) {
+                    f.setDataLancamento(filme.getDataLancamento());
+                    f.setOrcamento(filme.getOrcamento());
+                    f.setDescricao(filme.getDescricao());
+                    f.setDiretor(filme.getDiretor());
+                    f.setAtores(filme.getAtores());
+                }
+
+                StringBuilder sb = new StringBuilder();
+                sb.append(f.getNome()).append(";");
+                sb.append(f.getDataLancamento()).append(";");
+                sb.append(f.getOrcamento()).append(";");
+                sb.append(f.getDescricao()).append(";");
+
+                String nomeDiretor = (f.getDiretor() != null)
+                        ? f.getDiretor().getNome() + ";"
+                        : "Não informado";
+                sb.append(nomeDiretor).append(";");
+
+                List<Ator> atores = f.getAtores();
+
+                if (atores != null && !atores.isEmpty()) {
+                    for (int i = 0; i < atores.size(); i++) {
+                        sb.append(atores.get(i).getNome());
+
+                        if (i < atores.size() - 1) {
+                            sb.append(",");
+                        }
+                    }
+                } else {
+                    sb.append("Nenhum ator");
+                }
+                sb.append("\n");
+
+                bw.write(sb.toString());
+            }
+
+            bw.flush();
+            bw.close();
+
+        } catch (IOException e) {
+            System.out.println("Erro ao atualizar o arquivo");
+            e.printStackTrace();
+        }
+        return filme;
+    }
+
 }
