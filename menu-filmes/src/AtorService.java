@@ -24,6 +24,6 @@ public class AtorService {
                 return ator;
             }
         }
-        return null;
+        throw new NaoEncontradoException("Ator não encontrado: " + nome);
     }
 }

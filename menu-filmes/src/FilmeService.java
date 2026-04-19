@@ -24,7 +24,7 @@ public class FilmeService {
                 return filme;
             }
         }
-        return null;
+        throw new NaoEncontradoException("Filme não encontrado: " + nome);
     }
 
     public void associarDiretorAoFilme(Filme filme, Diretor diretor) {

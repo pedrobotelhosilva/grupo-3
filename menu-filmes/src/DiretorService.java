@@ -24,6 +24,6 @@ public class DiretorService {
                 return diretor;
             }
         }
-        return null;
+        throw new NaoEncontradoException("Diretor não encontrado: " + nome);
     }
 }
