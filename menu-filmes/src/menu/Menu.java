@@ -74,6 +74,7 @@ public class Menu {
                 default:
                     System.out.println("Opção inválida!");
             }
+          System.out.println(atorService.listarAtores());
         }
     }
 
