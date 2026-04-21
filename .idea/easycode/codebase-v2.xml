@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="com.obiscr.chatgpt.settings.EasyCodeState">
+    <option name="projectFiles" value="$PROJECT_DIR$/menu-filmes/src/menu/Menu.java;/home/biancav15/Documentos/Workspaces/ada/grupo-3/menu-filmes/src/model/Ator.java;/home/biancav15/Documentos/Workspaces/ada/grupo-3/menu-filmes/src/model/Diretor.java;/home/biancav15/Documentos/Workspaces/ada/grupo-3/menu-filmes/src/model/Filme.java;/home/biancav15/Documentos/Workspaces/ada/grupo-3/menu-filmes/src/model/Pessoa.java;/home/biancav15/Documentos/Workspaces/ada/grupo-3/menu-filmes/src/repository/AtorFileRepository.java;/home/biancav15/Documentos/Workspaces/ada/grupo-3/menu-filmes/src/repository/DiretorFileRepository.java;/home/biancav15/Documentos/Workspaces/ada/grupo-3/menu-filmes/src/repository/FilmeFileRepository.java;/home/biancav15/Documentos/Workspaces/ada/grupo-3/menu-filmes/src/service/AtorService.java;/home/biancav15/Documentos/Workspaces/ada/grupo-3/menu-filmes/src/service/DiretorService.java;/home/biancav15/Documentos/Workspaces/ada/grupo-3/menu-filmes/src/service/FilmeService.java;/home/biancav15/Documentos/Workspaces/ada/grupo-3/menu-filmes/src/Main.java;/home/biancav15/Documentos/Workspaces/ada/grupo-3/README.md" />
+  </component>
+</project>

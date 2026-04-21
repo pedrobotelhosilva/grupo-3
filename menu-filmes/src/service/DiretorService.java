@@ -1,11 +1,14 @@
 package service;
 
 import model.Diretor;
+import model.Filme;
+import repository.AtorFileRepository;
 import repository.DiretorFileRepository;
 import repository.FilmeFileRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class DiretorService {
     private List<Diretor> diretores;
@@ -14,10 +17,10 @@ public class DiretorService {
         this.diretores = new ArrayList<>();
     }
 
-    public void cadastrarDiretor(Diretor diretor) {
+    public static void cadastrarDiretor(Diretor diretor) {
         if (diretor != null) {
             DiretorFileRepository.adicionarDiretor(diretor);
-            //diretores.add(diretor);
+
         }
     }
 
@@ -26,11 +29,14 @@ public class DiretorService {
     }
 
     public Diretor buscarDiretorPorNome(String nome) {
-        for (Diretor diretor : diretores) {
-            if (diretor.getNome().equalsIgnoreCase(nome)) {
+
+        for (Diretor diretor : listarDiretores()) {
+
+            if (diretor.getNome().trim().equalsIgnoreCase(nome.trim())) {
                 return diretor;
             }
         }
+
         return null;
     }
 }

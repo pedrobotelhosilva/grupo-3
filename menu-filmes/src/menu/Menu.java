@@ -9,6 +9,7 @@ import service.DiretorService;
 import service.FilmeService;
 import menu.ator.AtorMenu;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -111,8 +112,8 @@ public class Menu {
         System.out.print("Nacionalidade: ");
         String nacionalidade = scanner.nextLine();
 
-        System.out.print("Gênero artístico: ");
-        String genero = scanner.nextLine();
+                    System.out.print("Nacionalidade: ");
+                    String nacionalidade = scanner.nextLine();
 
         Ator ator = new Ator(nome, data, nacionalidade, genero);
         atorService.cadastrarAtor(ator);
@@ -123,136 +124,131 @@ public class Menu {
       
     }
 
-    private void cadastrarDiretor() {
-        System.out.print("Nome: ");
-        String nome = scanner.nextLine();
+                    Ator ator = new Ator(nomeAtor, data, nacionalidade, genero);
 
-        System.out.print("Data de nascimento: ");
-        String data = scanner.nextLine();
+                    atorService.cadastrarAtor(ator);
 
-        System.out.print("Nacionalidade: ");
-        String nacionalidade = scanner.nextLine();
+                    break;
 
-        System.out.print("Estilo de direção: ");
-        String estilo = scanner.nextLine();
+                case 2:
+                    System.out.print("Nome do diretor: ");
+                    String nomeDiretor = scanner.nextLine();
 
-        Diretor diretor = new Diretor(nome, data, nacionalidade, estilo);
-        diretorService.cadastrarDiretor(diretor);
+                    System.out.println("Digite a data de nascimento do diretor: ");
+                    String dataNascimento = scanner.nextLine();
 
-        System.out.println("model.Diretor cadastrado com sucesso!");
-    }
+                    System.out.println("Digite a nacionalidade do diretor: ");
+                    String nacionalidade2 = scanner.nextLine();
 
-    private void cadastrarFilme() {
-        System.out.print("Nome: ");
-        String nome = scanner.nextLine();
-
-        System.out.print("Data de lançamento: ");
-        String data = scanner.nextLine();
-
-        System.out.print("Orçamento: ");
-        double orcamento = scanner.nextDouble();
-        scanner.nextLine();
-
-        System.out.print("Descrição: ");
-        String descricao = scanner.nextLine();
+                    System.out.println("Digite o estilo de direção do diretor: ");
+                    String estiloDirecao = scanner.nextLine();
 
 
-        System.out.print("Diretor (opcional): ");
-        String nomeDiretor = scanner.nextLine();
-        Diretor diretor = null;
+                    Diretor diretor = new Diretor(nomeDiretor, dataNascimento, nacionalidade2, estiloDirecao);
+                    diretorService.cadastrarDiretor(diretor);
+                    break;
+
+                case 3:
+                    filmeService.adicionarFilme();
+                    break;
+
+                case 4:
+                    System.out.print("Nome do filme: ");
+                    String nomeFilme = scanner.nextLine().trim();
+
+                    Filme nomeFilmeVar = filmeService.buscarFilmePorNome(nomeFilme);
+
+                    if (nomeFilmeVar == null) {
+                        System.out.println("Filme não encontrado!");
+                        break;
+                    }
+
+                    System.out.print("Nome do diretor: ");
+                    String nomeDiretorVar = scanner.nextLine().trim();
+
+                    Diretor nomeDiretor2 = diretorService.buscarDiretorPorNome(nomeDiretorVar);
+
+                    if (nomeDiretor2 == null) {
+                        System.out.println("Diretor não encontrado!");
+                        break;
+                    }
+
+                    filmeService.associarDiretor(nomeFilmeVar, nomeDiretor2);
+                    break;
 
 
-        System.out.println("Digite os nomes dos atores (opcional. Use , se + de um): ");
-        String nomesAtores = scanner.nextLine();
-        List<Ator> atores = null;
+                case 5:
+                    System.out.print("Nome do filme: ");
+                    String nomeFilme2 = scanner.nextLine().trim();
+
+                    Filme filme3 = filmeService.buscarFilmePorNome(nomeFilme2);
+
+                    if (filme3 == null) {
+                        System.out.println("Filme não encontrado!");
+                        break;
+                    }
+
+                    System.out.print("Nome do ator: ");
+                    String nomeAtor3 = scanner.nextLine().trim();
+
+                    Ator ator3 = atorService.buscarAtorPorNome(nomeAtor3);
+
+                    if (ator3 == null) {
+                        System.out.println("Ator não encontrado!");
+                        break;
+                    }
+
+                    filmeService.associarAtor(filme3, ator3);
+                    break;
+                case 6:
+                    System.out.print("Nome do filme: ");
+                    String nome4 = scanner.nextLine();
+
+                    Filme filme4 = filmeService.buscarFilmePorNome(nome4);
+
+                    if (filme4 == null) {
+                        System.out.println("Filme não encontrado!");
+                    } else {
+                        System.out.println("\n=== FILME ENCONTRADO ===");
+                        System.out.println(filme4.exibirDetalhes());
+                    }
+                    break;
 
 
-        Filme filme = new Filme(nome, data, orcamento, descricao, null, null);
-        filmeService.cadastrarFilme(filme);
+                case 7:
+                    List<Filme> filmes = filmeService.listarFilmes();
 
+                    System.out.println("\n=== LISTA DE FILMES ===");
 
-        System.out.println("Filme cadastrado com sucesso!");
-    }
+                    for (Filme f : filmes) {
+                        System.out.println(f);
+                    }
+                    break;
 
-    private void associarDiretor() {
-        System.out.print("Nome do filme: ");
-        String nomeFilme = scanner.nextLine();
+                case 8:
+                    List<Diretor> diretores = diretorService.listarDiretores();
 
-        Filme filme = filmeService.pesquisarFilmePorNome(nomeFilme);
+                    System.out.println("\n=== LISTA DE DIRETORES ===");
 
-        if (filme == null) {
-            System.out.println("Filme não encontrado!");
-            return;
-        }
+                    for (Diretor d : diretores) {
+                        System.out.println(d.getNome());
+                    }
+                    break;
 
-        System.out.print("Nome do diretor: ");
-        String nomeDiretor = scanner.nextLine();
-
-        Diretor diretor = diretorService.buscarDiretorPorNome(nomeDiretor);
-
-        if (diretor == null) {
-            System.out.println("Diretor não encontrado!");
-            return;
-        }
-
-        filmeService.associarDiretorAoFilme(filme, diretor);
-        System.out.println("Diretor associado com sucesso!");
-    }
-
-    private void associarAtor() {
-        System.out.print("Nome do filme: ");
-        String nomeFilme = scanner.nextLine();
-
-        Filme filme = filmeService.pesquisarFilmePorNome(nomeFilme);
-
-        if (filme == null) {
-            System.out.println("Filme não encontrado!");
-            return;
-        }
-
-        System.out.print("Nome do ator: ");
-        String nomeAtor = scanner.nextLine();
-
-        Ator ator = atorService.buscarAtorPorNome(nomeAtor);
-
-        if (ator == null) {
-            System.out.println("Ator não encontrado!");
-            return;
-        }
-
-        filmeService.associarAtorAoFilme(filme, ator);
-        System.out.println("Ator associado com sucesso!");
-    }
-
-    private void buscarFilme() {
-        System.out.print("Nome do filme: ");
-        String nome = scanner.nextLine();
-
-        Filme filme = filmeService.pesquisarFilmePorNome(nome);
-
-        if (filme != null) {
-            System.out.println("\n=== FILME ENCONTRADO ===");
-            System.out.println(filme.exibirDetalhes());
-        } else {
-            System.out.println("Filme não encontrado!");
-        }
-    }
-//    private void listarFilmes() {
-//        System.out.println("\n=== LISTA DE FILMES ===");
-//        List<Filme> filmes = FilmeFileRepository.buscarTodos();
-//
-//        for (Filme f : filmes) {
-//            System.out.println(f.getNome());
-//        }
-        private void listarFilmes() {
-            System.out.println("\n=== LISTA DE FILMES ===");
-
-            List<Filme> filmes = filmeService.listarFilmes();
-
-            for (Filme f : filmes) {
-                System.out.println(f.getNome());
+                case 9:
+                    List<Ator> atores2 = atorService.listarAtores();
+                    System.out.println("\n=== LISTA DE ATORES ===");
+                    for (Ator a : atores2) {
+                        System.out.println(a.getNome());
+                    }
+                    break;
+                case 0:
+                    System.out.println("Encerrando...");
+                    break;
+                default:
+                    System.out.println("Opção inválida!");
             }
         }
-
     }
+}
 
