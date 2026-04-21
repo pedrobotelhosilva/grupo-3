@@ -8,6 +8,7 @@ import service.AtorService;
 import service.DiretorService;
 import service.FilmeService;
 import menu.ator.AtorMenu;
+import menu.diretor.DiretorMenu;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,7 @@ public class Menu {
     private DiretorService diretorService;
     private FilmeService filmeService;
     private AtorMenu  atorMenu; // implement-AtorUtils
+    private DiretorMenu  diretorMenu; // implement-AtorUtils
 
     public Menu(AtorService atorService, DiretorService diretorService, FilmeService filmeService) {
         this.scanner = new Scanner(System.in);
@@ -27,6 +29,7 @@ public class Menu {
         this.diretorService = diretorService;
         this.filmeService = filmeService;
         this.atorMenu = new AtorMenu(this.scanner, this.atorService); // implement-AtorUtils
+        this.atorMenu = new DiretorMenu(this.scanner, this.diretorService); // implement-AtorUtils
     }
 
     public void exibirMenu() {
@@ -51,10 +54,10 @@ public class Menu {
 
             switch (opcao) {
                 case 1:
-                    cadastrarAtor();
+                    atorMenu.cadastrarAtor();   
                     break;
                 case 2:
-                //    cadastrarDiretor();
+                    diretorMenu.cadastrarDiretor();   
                     break;
                 case 3:
                 //    cadastrarFilme();
@@ -95,9 +98,6 @@ public class Menu {
         }
     }
 
-    private void cadastrarAtor() {
-      atorMenu.cadastrarAtor();   
-    }
 
 /*
                     Ator ator = new Ator(nomeAtor, data, nacionalidade, genero);

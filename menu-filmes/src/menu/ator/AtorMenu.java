@@ -16,8 +16,8 @@ public final class AtorMenu
 
   public AtorMenu(Scanner scanner, AtorService atorService)
   {
-	this.scanner = scanner;
-	this.atorService = atorService;
+	  this.scanner = scanner;
+	  this.atorService = atorService;
   }
 
   public boolean cadastrarAtor()
