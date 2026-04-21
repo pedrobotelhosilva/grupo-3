@@ -7,6 +7,7 @@ import repository.FilmeFileRepository;
 import service.AtorService;
 import service.DiretorService;
 import service.FilmeService;
+import menu.ator.AtorMenu;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,12 +19,14 @@ public class Menu {
     private AtorService atorService;
     private DiretorService diretorService;
     private FilmeService filmeService;
+    private AtorMenu  atorMenu; // implement-AtorUtils
 
     public Menu(AtorService atorService, DiretorService diretorService, FilmeService filmeService) {
         this.scanner = new Scanner(System.in);
         this.atorService = atorService;
         this.diretorService = diretorService;
         this.filmeService = filmeService;
+        this.atorMenu = new AtorMenu(this.scanner, this.atorService); // implement-AtorUtils
     }
 
     public void exibirMenu() {
@@ -48,17 +51,78 @@ public class Menu {
 
             switch (opcao) {
                 case 1:
-                    System.out.print("Nome do ator: ");
-                    String nomeAtor = scanner.nextLine();
+                    cadastrarAtor();
+                    break;
+                case 2:
+                    cadastrarDiretor();
+                    break;
+                case 3:
+                    cadastrarFilme();
+                    break;
+                case 4:
+                    associarDiretor();
+                    break;
+                case 5:
+                    associarAtor();
+                    break;
+                case 6:
+                    buscarFilme();
+                    break;
+                case 7:
+                    listarFilmes();
+                    break;
+                case 8:
+                    List<Diretor> diretores = diretorService.listarDiretores();
+                    System.out.println("\n=== LISTA DE DIRETORES ===");
+                    for (Diretor d : diretores) {
+                        System.out.println(d.getNome());
+                    }
+                    break;
+                case 9:
+                    List<Ator> atores = atorService.listarAtores();
+                    System.out.println("\n=== LISTA DE ATORES ===");
+                    for (Ator a : atores) {
+                        System.out.println(a.getNome());
+                    }
+                    break;
+                case 0:
+                    System.out.println("Encerrando...");
+                    break;
+                default:
+                    System.out.println("Opção inválida!");
+            }
+          System.out.println(atorService.listarAtores());
+        }
+    }
 
-                    System.out.print("Data de nascimento: ");
-                    String data = scanner.nextLine();
+    private void cadastrarAtor() {
+/*        System.out.print("Nome: ");
+        String nome = scanner.nextLine();
+
+        System.out.print("Data de nascimento: ");
+        String data = scanner.nextLine();
+
+////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
+////////if (!Check.validate(data))///////////////////////////////////
+//////////System.out.println("Errado ai meu chef");/////////////////
+///////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
+
+        System.out.print("Nacionalidade: ");
+        String nacionalidade = scanner.nextLine();
 
                     System.out.print("Nacionalidade: ");
                     String nacionalidade = scanner.nextLine();
 
-                    System.out.print("Gênero artístico: ");
-                    String genero = scanner.nextLine();
+        Ator ator = new Ator(nome, data, nacionalidade, genero);
+        atorService.cadastrarAtor(ator);
+
+        System.out.println("model.Ator cadastrado com sucesso!");
+    */
+      atorMenu.cadastrarAtor();   
+      
+    }
 
                     Ator ator = new Ator(nomeAtor, data, nacionalidade, genero);
 

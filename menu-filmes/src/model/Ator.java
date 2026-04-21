@@ -1,37 +1,76 @@
 package model;
 
-public class Ator extends Pessoa {
-    private String generoArtistico;
+import java.util.ArrayList;
+import java.util.List;
 
+public class Ator extends Pessoa
+{
+    private List<Filme> filmes;
 
-    public Ator(String nome) {
+    public Ator(String nome)
+    {
         super(nome);
+        this.filmes = new ArrayList<>();
     }
 
-    public Ator(String nome, String dataNascimento, String nacionalidade, String generoArtistico) {
+    public Ator(String nome, String dataNascimento, String nacionalidade)
+    {
         super(nome, dataNascimento, nacionalidade);
-        this.generoArtistico = generoArtistico;
+        this.filmes = new ArrayList<>();
     }
 
-
-    public String getGeneroArtistico() {
-        return generoArtistico;
+    public List<Filme> getFilmes()
+    {
+        return (this.filmes);
     }
 
-    public void setGeneroArtistico(String generoArtistico) {
-        this.generoArtistico = generoArtistico;
+    public void setFilmes(List<Filme> filmes)
+    {
+        if (filmes == null)
+            this.filmes = new ArrayList<>();
+        else
+            this.filmes = filmes;
+    }
+
+    public void adicionarFilme(Filme filme)
+    {
+        if (filme != null && !this.filmes.contains(filme))
+            this.filmes.add(filme);
+    }
+
+    public void removerFilme(Filme filme)
+    {
+        this.filmes.remove(filme);
+    }
+
+    public String listarFilmes()
+    {
+        String nomesFilmes;
+
+        nomesFilmes = "";
+        if (this.filmes.isEmpty())
+            return ("Nenhum filme cadastrado");
+        for (int i = 0; i < this.filmes.size(); i++)
+        {
+            nomesFilmes += this.filmes.get(i).getNome();
+            if (i < this.filmes.size() - 1)
+                nomesFilmes += ", ";
+        }
+        return (nomesFilmes);
     }
 
     @Override
-    public String exibirInformacoes() {
-        return "model.Ator: " + getNome() +
-                " | Data de nascimento: " + getDataNascimento() +
-                " | Nacionalidade: " + getNacionalidade() +
-                " | Gênero artístico: " + generoArtistico;
+    public String exibirInformacoes()
+    {
+        return ("Ator: " + this.getNome()
+                + " | Data de nascimento: " + this.getDataNascimento()
+                + " | Nacionalidade: " + this.getNacionalidade()
+                + " | Filmes: " + this.listarFilmes());
     }
 
     @Override
-    public String toString() {
-        return getNome();
+    public String toString()
+    {
+        return (this.getNome());
     }
 }
