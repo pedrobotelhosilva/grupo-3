@@ -8,7 +8,7 @@ import java.util.List;
 
 public class AtorFileRepository {
 
-    private static final String FILE_NAME = "atores.txt";
+    private static final String FILE_NAME = "src/data/atores.txt";
 
     public static List<Ator> buscarTodos() {
         List<Ator> atores = new ArrayList<>();
@@ -22,7 +22,7 @@ public class AtorFileRepository {
 
                 String[] partes = linha.split(";");
 
-                if (partes.length < 4) {
+                if (partes.length < 3) {
                     System.out.println("Dados incompletos: " + linha);
                     continue;
                 }
@@ -30,9 +30,8 @@ public class AtorFileRepository {
                 String nome = partes[0];
                 String dataNascimento = partes[1];
                 String nacionalidade = partes[2];
-                String generoArtistico = partes[3];
 
-                Ator ator = new Ator(nome, dataNascimento, nacionalidade, generoArtistico);
+                Ator ator = new Ator(nome, dataNascimento, nacionalidade);
 
                 atores.add(ator);
             }
@@ -56,7 +55,6 @@ public class AtorFileRepository {
             sb.append(ator.getNome()).append(";");
             sb.append(ator.getDataNascimento()).append(";");
             sb.append(ator.getNacionalidade()).append(";");
-            sb.append(ator.getGeneroArtistico()).append(";");
             sb.append("\n");
 
             bw.write(sb.toString());

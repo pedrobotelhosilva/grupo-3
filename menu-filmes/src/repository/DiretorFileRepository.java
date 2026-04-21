@@ -10,7 +10,7 @@ import java.util.List;
 
 public class DiretorFileRepository {
 
-    private static final String FILE_NAME = "diretores.txt";
+    private static final String FILE_NAME = "src/data/diretores.txt";
 
     public static List<Diretor> buscarTodos() {
         List<Diretor> diretores = new ArrayList<>();

@@ -13,7 +13,7 @@ public class FilmeFileRepository {
         List<Filme> filmes = new ArrayList<>();
 
         try {
-            File file = new File("filmes.txt");
+            File file = new File("src/data/filmes.txt");
 
             BufferedReader br = new BufferedReader(new FileReader(file));
             String linha;
