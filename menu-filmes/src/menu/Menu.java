@@ -54,22 +54,22 @@ public class Menu {
                     cadastrarAtor();
                     break;
                 case 2:
-                    cadastrarDiretor();
+                //    cadastrarDiretor();
                     break;
                 case 3:
-                    cadastrarFilme();
+                //    cadastrarFilme();
                     break;
                 case 4:
-                    associarDiretor();
+                //    associarDiretor();
                     break;
                 case 5:
-                    associarAtor();
+                //    associarAtor();
                     break;
                 case 6:
-                    buscarFilme();
+                //   buscarFilme();
                     break;
                 case 7:
-                    listarFilmes();
+                //   listarFilmes();
                     break;
                 case 8:
                     List<Diretor> diretores = diretorService.listarDiretores();
@@ -96,34 +96,10 @@ public class Menu {
     }
 
     private void cadastrarAtor() {
-/*        System.out.print("Nome: ");
-        String nome = scanner.nextLine();
-
-        System.out.print("Data de nascimento: ");
-        String data = scanner.nextLine();
-
-////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////
-////////if (!Check.validate(data))///////////////////////////////////
-//////////System.out.println("Errado ai meu chef");/////////////////
-///////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////
-
-        System.out.print("Nacionalidade: ");
-        String nacionalidade = scanner.nextLine();
-
-                    System.out.print("Nacionalidade: ");
-                    String nacionalidade = scanner.nextLine();
-
-        Ator ator = new Ator(nome, data, nacionalidade, genero);
-        atorService.cadastrarAtor(ator);
-
-        System.out.println("model.Ator cadastrado com sucesso!");
-    */
       atorMenu.cadastrarAtor();   
-      
     }
 
+/*
                     Ator ator = new Ator(nomeAtor, data, nacionalidade, genero);
 
                     atorService.cadastrarAtor(ator);
@@ -249,6 +225,6 @@ public class Menu {
                     System.out.println("Opção inválida!");
             }
         }
-    }
+    }*/
 }
 
