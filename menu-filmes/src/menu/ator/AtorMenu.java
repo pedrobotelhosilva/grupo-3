@@ -20,7 +20,7 @@ public final class AtorMenu
 	this.atorService = atorService;
   }
 
-  public void cadastrarAtor()
+  public boolean cadastrarAtor()
   {
     String nome;
     String data;
@@ -32,7 +32,13 @@ public final class AtorMenu
     if (!AtorValidation.validateNome(nome))
     {
       System.out.println("Nome inválido!");
-      return;
+      return (false);
+    }
+
+    if (!AtorValidation.validationNomeExiste(nome, atorService.listarAtores()))
+    {
+      System.out.println("Já existe um ator com esse nome cadastrado!");
+      return (false);
     }
 
     System.out.print("Data de nascimento: ");
@@ -40,7 +46,7 @@ public final class AtorMenu
     if (!AtorValidation.validateDataNascimento(data))
     {
       System.out.println("Data de nascimento inválida!");
-      return;
+      return (false);
     }
 
     System.out.print("Nacionalidade: ");
@@ -48,23 +54,13 @@ public final class AtorMenu
     if (!AtorValidation.validateNacionalidade(nacionalidade))
     {
       System.out.println("Nacionalidade inválida!");
-      return;
+      return (false);
     }
 
-    /*
-    System.out.print("Gênero artístico: ");
-    genero = scanner.nextLine();
-    if (!AtorValidation.validateGeneroArtistico(genero))
-    {
-      System.out.println("Gênero artístico inválido!");
-      return;
-    }
-
-    */
-
-    Ator ator = new Ator(nome, data, nacionalidade, " "); // genero vazio por enquanto (irei repensar os atributos do ator)
+    Ator ator = new Ator(nome, data, nacionalidade);
     atorService.cadastrarAtor(ator);
 
     System.out.println("Ator cadastrado com sucesso!");
+    return (true);
   }
 }
