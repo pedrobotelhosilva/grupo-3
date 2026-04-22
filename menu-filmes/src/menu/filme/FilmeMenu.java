@@ -10,6 +10,7 @@ import model.Filme;
 import service.AtorService;
 import service.DiretorService;
 import service.FilmeService;
+import utils.general.MenuUtils;
 
 public class FilmeMenu
 {
@@ -28,50 +29,51 @@ public class FilmeMenu
 
     public void exibirMenu()
     {
-        int opcao = -1;
+        int opcao;
 
+        opcao = -1;
         while (opcao != 0)
         {
-            System.out.println("\n=== MENU DE FILMES ===");
-            System.out.println("1 - Cadastrar Filme");
-            System.out.println("2 - Buscar Filme por Nome");
-            System.out.println("3 - Listar Filmes");
-            System.out.println("4 - Associar Diretor a Filme");
-            System.out.println("5 - Associar Ator a Filme");
+            MenuUtils.limparTela();
+            MenuUtils.titulo("MENU DE FILMES");
+            System.out.println("1 - Cadastrar filme");
+            System.out.println("2 - Buscar filme por nome");
+            System.out.println("3 - Listar filmes");
+            System.out.println("4 - Associar diretor a filme");
+            System.out.println("5 - Associar ator a filme");
             System.out.println("0 - Voltar");
-            System.out.print("Escolha uma opção: ");
+            MenuUtils.separador();
 
-            if (!scanner.hasNextInt())
-            {
-                System.out.println("Digite um número válido.");
-                scanner.nextLine();
-                continue;
-            }
-
-            opcao = scanner.nextInt();
-            scanner.nextLine();
+            opcao = MenuUtils.lerOpcao(this.scanner, "Escolha uma opção: ");
+            MenuUtils.limparTela();
 
             switch (opcao)
             {
                 case 1:
-                    cadastrarFilme();
+                    this.cadastrarFilme();
+                    MenuUtils.pausar(this.scanner);
                     break;
                 case 2:
-                    buscarFilme();
+                    this.buscarFilme();
+                    MenuUtils.pausar(this.scanner);
                     break;
                 case 3:
-                    listarFilmes();
+                    this.listarFilmes();
+                    MenuUtils.pausar(this.scanner);
                     break;
                 case 4:
-                    associarDiretorAFilme();
+                    this.associarDiretorAFilme();
+                    MenuUtils.pausar(this.scanner);
                     break;
                 case 5:
-                    associarAtorAFilme();
+                    this.associarAtorAFilme();
+                    MenuUtils.pausar(this.scanner);
                     break;
                 case 0:
                     break;
                 default:
-                    System.out.println("Opção inválida!");
+                    System.out.println("Opção inválida.");
+                    MenuUtils.pausar(this.scanner);
             }
         }
     }
@@ -88,44 +90,18 @@ public class FilmeMenu
         List<Ator> atores;
         Filme filme;
 
-        System.out.print("Nome do filme: ");
-        nome = scanner.nextLine();
+        MenuUtils.titulo("CADASTRAR FILME");
 
-        if (nome.isBlank())
-        {
-            System.out.println("Nome inválido.");
-            return;
-        }
-
-        if (filmeService.buscarFilmePorNome(nome) != null)
-        {
-            System.out.println("Já existe um filme com esse nome.");
-            return;
-        }
-
-        System.out.print("Data de lançamento: ");
-        dataLancamento = scanner.nextLine();
-
-        System.out.print("Orçamento: ");
-        if (!scanner.hasNextDouble())
-        {
-            System.out.println("Orçamento inválido.");
-            scanner.nextLine();
-            return;
-        }
-        orcamento = scanner.nextDouble();
-        scanner.nextLine();
-
-        System.out.print("Descrição: ");
-        descricao = scanner.nextLine();
-
-        System.out.print("Nome do diretor: ");
-        nomeDiretor = scanner.nextLine();
+        nome = MenuUtils.lerTexto(this.scanner, "Nome do filme: ");
+        dataLancamento = MenuUtils.lerTexto(this.scanner, "Data de lançamento: ");
+        orcamento = MenuUtils.lerDouble(this.scanner, "Orçamento: ");
+        descricao = MenuUtils.lerTexto(this.scanner, "Descrição: ");
+        nomeDiretor = MenuUtils.lerTexto(this.scanner, "Nome do diretor: ");
 
         diretor = null;
         if (!nomeDiretor.isBlank())
         {
-            diretor = diretorService.buscarDiretorPorNome(nomeDiretor);
+            diretor = this.diretorService.buscarDiretorPorNome(nomeDiretor);
 
             if (diretor == null)
             {
@@ -134,17 +110,16 @@ public class FilmeMenu
             }
         }
 
-        System.out.print("Digite os nomes dos atores (separados por vírgula): ");
-        entradaAtores = scanner.nextLine();
-
+        entradaAtores = MenuUtils.lerTexto(this.scanner, "Digite os nomes dos atores (separados por vírgula): ");
         atores = new ArrayList<>();
+
         if (!entradaAtores.isBlank())
         {
             String[] nomes = entradaAtores.split(",");
 
             for (String nomeAtor : nomes)
             {
-                Ator ator = atorService.buscarAtorPorNome(nomeAtor.trim());
+                Ator ator = this.atorService.buscarAtorPorNome(nomeAtor.trim());
 
                 if (ator == null)
                 {
@@ -156,17 +131,20 @@ public class FilmeMenu
         }
 
         filme = new Filme(nome, dataLancamento, orcamento, descricao, diretor, atores);
-        filmeService.cadastrarFilme(filme);
+        this.filmeService.cadastrarFilme(filme);
 
-        System.out.println("Filme cadastrado com sucesso!");
+        System.out.println("Filme cadastrado com sucesso.");
     }
 
     public void buscarFilme()
     {
-        System.out.print("Nome do filme: ");
-        String nome = scanner.nextLine();
+        String nome;
+        Filme filme;
 
-        Filme filme = filmeService.buscarFilmePorNome(nome);
+        MenuUtils.titulo("BUSCA DE FILME");
+
+        nome = MenuUtils.lerTexto(this.scanner, "Nome do filme: ");
+        filme = this.filmeService.buscarFilmePorNome(nome);
 
         if (filme == null)
         {
@@ -174,15 +152,14 @@ public class FilmeMenu
             return;
         }
 
-        System.out.println("\n=== FILME ENCONTRADO ===");
         System.out.println(filme.exibirDetalhes());
     }
 
     public void listarFilmes()
     {
-        List<Filme> filmes = filmeService.listarFilmes();
+        List<Filme> filmes = this.filmeService.listarFilmes();
 
-        System.out.println("\n=== LISTA DE FILMES ===");
+        MenuUtils.titulo("LISTA DE FILMES");
 
         if (filmes.isEmpty())
         {
@@ -190,19 +167,26 @@ public class FilmeMenu
             return;
         }
 
-        for (Filme filme : filmes)
+        for (int i = 0; i < filmes.size(); i++)
         {
-            System.out.println(filme.exibirDetalhes());
-            System.out.println("----------------------------------");
+            System.out.println((i + 1) + " - " + filmes.get(i).getNome());
+            MenuUtils.separador();
+            System.out.println(filmes.get(i).exibirDetalhes());
+            MenuUtils.separador();
         }
     }
 
     public void associarDiretorAFilme()
     {
-        System.out.print("Nome do filme: ");
-        String nomeFilme = scanner.nextLine();
+        String nomeFilme;
+        String nomeDiretor;
+        Filme filme;
+        Diretor diretor;
 
-        Filme filme = filmeService.buscarFilmePorNome(nomeFilme);
+        MenuUtils.titulo("ASSOCIAR DIRETOR A FILME");
+
+        nomeFilme = MenuUtils.lerTexto(this.scanner, "Nome do filme: ");
+        filme = this.filmeService.buscarFilmePorNome(nomeFilme);
 
         if (filme == null)
         {
@@ -210,10 +194,8 @@ public class FilmeMenu
             return;
         }
 
-        System.out.print("Nome do diretor: ");
-        String nomeDiretor = scanner.nextLine();
-
-        Diretor diretor = diretorService.buscarDiretorPorNome(nomeDiretor);
+        nomeDiretor = MenuUtils.lerTexto(this.scanner, "Nome do diretor: ");
+        diretor = this.diretorService.buscarDiretorPorNome(nomeDiretor);
 
         if (diretor == null)
         {
@@ -221,15 +203,20 @@ public class FilmeMenu
             return;
         }
 
-        filmeService.associarDiretor(filme, diretor);
+        this.filmeService.associarDiretor(filme, diretor);
     }
 
     public void associarAtorAFilme()
     {
-        System.out.print("Nome do filme: ");
-        String nomeFilme = scanner.nextLine();
+        String nomeFilme;
+        String nomeAtor;
+        Filme filme;
+        Ator ator;
 
-        Filme filme = filmeService.buscarFilmePorNome(nomeFilme);
+        MenuUtils.titulo("ASSOCIAR ATOR A FILME");
+
+        nomeFilme = MenuUtils.lerTexto(this.scanner, "Nome do filme: ");
+        filme = this.filmeService.buscarFilmePorNome(nomeFilme);
 
         if (filme == null)
         {
@@ -237,10 +224,8 @@ public class FilmeMenu
             return;
         }
 
-        System.out.print("Nome do ator: ");
-        String nomeAtor = scanner.nextLine();
-
-        Ator ator = atorService.buscarAtorPorNome(nomeAtor);
+        nomeAtor = MenuUtils.lerTexto(this.scanner, "Nome do ator: ");
+        ator = this.atorService.buscarAtorPorNome(nomeAtor);
 
         if (ator == null)
         {
@@ -248,6 +233,6 @@ public class FilmeMenu
             return;
         }
 
-        filmeService.associarAtor(filme, ator);
+        this.filmeService.associarAtor(filme, ator);
     }
 }

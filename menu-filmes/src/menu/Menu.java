@@ -8,6 +8,7 @@ import menu.filme.FilmeMenu;
 import service.AtorService;
 import service.DiretorService;
 import service.FilmeService;
+import utils.general.MenuUtils;
 
 public class Menu
 {
@@ -26,43 +27,39 @@ public class Menu
 
     public void exibirMenu()
     {
-        int opcao = -1;
+        int opcao;
 
+        opcao = -1;
         while (opcao != 0)
         {
-            System.out.println("\n=== MENU PRINCIPAL ===");
-            System.out.println("1 - Menu de Atores");
-            System.out.println("2 - Menu de Diretores");
-            System.out.println("3 - Menu de Filmes");
+            MenuUtils.limparTela();
+            MenuUtils.titulo("MENU PRINCIPAL");
+            System.out.println("1 - Atores");
+            System.out.println("2 - Diretores");
+            System.out.println("3 - Filmes");
             System.out.println("0 - Sair");
-            System.out.print("Escolha uma opção: ");
+            MenuUtils.separador();
 
-            if (!scanner.hasNextInt())
-            {
-                System.out.println("Digite um número válido.");
-                scanner.nextLine();
-                continue;
-            }
-
-            opcao = scanner.nextInt();
-            scanner.nextLine();
+            opcao = MenuUtils.lerOpcao(this.scanner, "Escolha uma opção: ");
+            MenuUtils.limparTela();
 
             switch (opcao)
             {
                 case 1:
-                    atorMenu.exibirMenu();
+                    this.atorMenu.exibirMenu();
                     break;
                 case 2:
-                    diretorMenu.exibirMenu();
+                    this.diretorMenu.exibirMenu();
                     break;
                 case 3:
-                    filmeMenu.exibirMenu();
+                    this.filmeMenu.exibirMenu();
                     break;
                 case 0:
                     System.out.println("Encerrando...");
                     break;
                 default:
-                    System.out.println("Opção inválida!");
+                    System.out.println("Opção inválida.");
+                    MenuUtils.pausar(this.scanner);
             }
         }
     }
