@@ -7,162 +7,170 @@ import service.AtorService;
 import service.DiretorService;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-public class FilmeFileRepository
-{
-    private static final String FILE_NAME = "src/data/filmes.txt";
+public class FilmeFileRepository {
 
-    public static List<Filme> buscarTodos(AtorService atorService, DiretorService diretorService)
-    {
-        List<Filme> filmes = new ArrayList<>();
+  public static List<Filme> buscarTodos(AtorService atorService, DiretorService diretorService) {
+    List<Filme> filmes = new ArrayList<>();
 
-        try (BufferedReader br = new BufferedReader(new FileReader(FILE_NAME)))
-        {
-            String linha;
+    try {
+      File file = new File("src/data/filmes.txt");
 
-            while ((linha = br.readLine()) != null)
-            {
-                if (linha.isBlank())
-                    continue;
+      BufferedReader br = new BufferedReader(new FileReader(file));
+      String linha;
 
-                String[] partes = linha.split(";", -1);
+      while ((linha = br.readLine()) != null) {
+        if (linha.isBlank()) continue;
 
-                if (partes.length < 6)
-                {
-                    System.out.println("Linha incompleta: " + linha);
-                    continue;
-                }
+        String[] partes = linha.split(";");
 
-                String nome = partes[0];
-                String dataLancamento = partes[1];
-                double orcamento = Double.parseDouble(partes[2]);
-                String descricao = partes[3];
-                String nomeDiretor = partes[4];
-                String nomesAtores = partes[5];
-
-                Filme filme = new Filme(nome, dataLancamento, orcamento, descricao);
-
-                if (!nomeDiretor.isBlank()
-                        && !nomeDiretor.equalsIgnoreCase("Não informado")
-                        && !nomeDiretor.equalsIgnoreCase("null"))
-                {
-                    Diretor diretor = diretorService.buscarDiretorPorNome(nomeDiretor);
-
-                    if (diretor != null)
-                        filme.setDiretor(diretor);
-                }
-
-                if (!nomesAtores.isBlank()
-                        && !nomesAtores.equalsIgnoreCase("Nenhum ator"))
-                {
-                    String[] nomes = nomesAtores.split(",");
-
-                    for (String nomeAtor : nomes)
-                    {
-                        Ator ator = atorService.buscarAtorPorNome(nomeAtor.trim());
-
-                        if (ator != null)
-                            filme.adicionarAtor(ator);
-                    }
-                }
-
-                filmes.add(filme);
-            }
-        }
-        catch (FileNotFoundException e)
-        {
-            System.out.println("Arquivo não encontrado: " + FILE_NAME);
-        }
-        catch (IOException e)
-        {
-            System.out.println("Erro ao ler arquivo de filmes");
-            e.printStackTrace();
+        if (partes.length < 6) {
+          System.out.println("Linha incompleta: " + linha);
+          continue;
         }
 
-        return (filmes);
+        String nome = partes[0];
+        String dataLancamento = partes[1];
+        double orcamento = Double.parseDouble(partes[2]);
+        String descricao = partes[3];
+
+        Diretor diretor = null;
+        if (!partes[4].isBlank()
+        && !partes[4].equalsIgnoreCase("Não informado")
+        && !partes[4].equalsIgnoreCase("null")) {
+          diretor = diretorService.buscarDiretorPorNome(partes[4]);
+        }
+
+        String[] nomesAtores = partes[5].split(",");
+        List<Ator> atores = new ArrayList<>();
+
+        for (String nomeAtor : nomesAtores) {
+          String nomeTratado = nomeAtor.trim();
+
+          if (nomeTratado.isBlank() || nomeTratado.equalsIgnoreCase("Nenhum ator"))
+            continue;
+
+          Ator ator = atorService.buscarAtorPorNome(nomeTratado);
+
+          if (ator != null)
+            atores.add(ator);
+        }
+
+        Filme filme = new Filme(nome, dataLancamento, orcamento, descricao);
+        filme.setDiretor(diretor);
+        filme.setAtores(atores);
+
+        filmes.add(filme);
+      }
+
+      br.close();
+
+    } catch (Exception e) {
+      e.printStackTrace();
     }
 
-    public static Filme adicionarFilme(Filme filme)
-    {
-        File file = new File(FILE_NAME);
+    return filmes;
+  }
 
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(file, true)))
-        {
-            bw.write(toLine(filme));
-            bw.newLine();
-        }
-        catch (IOException e)
-        {
-            System.out.println("Erro ao escrever no arquivo");
-            e.printStackTrace();
-        }
+  public static Filme adicionarFilme(Filme filme) {
+    File file = new File("src/data/filmes.txt");
 
-        return (filme);
+    try {
+      FileWriter writer = new FileWriter(file, true);
+      BufferedWriter bw = new BufferedWriter(writer);
+
+      StringBuilder sb = new StringBuilder();
+      sb.append(filme.getNome()).append(";");
+      sb.append(filme.getDataLancamento()).append(";");
+      sb.append(filme.getOrcamento()).append(";");
+      sb.append(filme.getDescricao()).append(";");
+
+      String nomeDiretor = (filme.getDiretor() != null) ? filme.getDiretor().getNome() : "Não informado";
+
+      sb.append(nomeDiretor).append(";");
+
+      List<Ator> atores = filme.getAtores();
+
+      if (atores != null && !atores.isEmpty()) {
+        for (int i = 0; i < atores.size(); i++) {
+          sb.append(atores.get(i).getNome());
+
+          if (i < atores.size() - 1) {
+            sb.append(",");
+          }
+        }
+      } else {
+        sb.append("Nenhum ator");
+      }
+      sb.append("\n");
+
+      bw.write(sb.toString());
+      bw.flush();
+      System.out.println("Conteúdo a gravar: " + sb.toString());
+      bw.close();
+
+    } catch (IOException e) {
+      System.out.println("Erro ao escrever no arquivo");
+      e.printStackTrace();
     }
 
-    public static Filme atualizarFilme(Filme filmeAtualizado, AtorService atorService, DiretorService diretorService)
-    {
-        List<Filme> filmes = buscarTodos(atorService, diretorService);
+    return filme;
+  }
 
-        for (int i = 0; i < filmes.size(); i++)
-        {
-            if (filmes.get(i).getNome().equalsIgnoreCase(filmeAtualizado.getNome()))
-            {
-                filmes.set(i, filmeAtualizado);
-                break;
-            }
+  public static Filme atualizarFilme(Filme filme, AtorService atorService, DiretorService diretorService) {
+    List<Filme> filmes = buscarTodos(atorService, diretorService);
+
+    try {
+      File file = new File("src/data/filmes.txt");
+      BufferedWriter bw = new BufferedWriter(new FileWriter(file, false));
+
+      for (Filme f : filmes) {
+        if (f.getNome().equalsIgnoreCase(filme.getNome())) {
+          f.setDataLancamento(filme.getDataLancamento());
+          f.setOrcamento(filme.getOrcamento());
+          f.setDescricao(filme.getDescricao());
+          f.setDiretor(filme.getDiretor());
+          f.setAtores(filme.getAtores());
         }
 
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_NAME, false)))
-        {
-            for (Filme filme : filmes)
-            {
-                bw.write(toLine(filme));
-                bw.newLine();
-            }
-        }
-        catch (IOException e)
-        {
-            System.out.println("Erro ao atualizar o arquivo");
-            e.printStackTrace();
-        }
-
-        return (filmeAtualizado);
-    }
-
-    private static String toLine(Filme filme)
-    {
         StringBuilder sb = new StringBuilder();
+        sb.append(f.getNome()).append(";");
+        sb.append(f.getDataLancamento()).append(";");
+        sb.append(f.getOrcamento()).append(";");
+        sb.append(f.getDescricao()).append(";");
 
-        sb.append(filme.getNome()).append(";");
-        sb.append(filme.getDataLancamento()).append(";");
-        sb.append(filme.getOrcamento()).append(";");
-        sb.append(filme.getDescricao()).append(";");
+        String nomeDiretor = (f.getDiretor() != null)
+        ? f.getDiretor().getNome()
+        : "Não informado";
+        sb.append(nomeDiretor).append(";");
 
-        if (filme.getDiretor() != null)
-            sb.append(filme.getDiretor().getNome());
+        List<Ator> atores = f.getAtores();
 
-        sb.append(";");
+        if (atores != null && !atores.isEmpty()) {
+          for (int i = 0; i < atores.size(); i++) {
+            sb.append(atores.get(i).getNome());
 
-        List<Ator> atores = filme.getAtores();
-
-        if (atores != null && !atores.isEmpty())
-        {
-            for (int i = 0; i < atores.size(); i++)
-            {
-                sb.append(atores.get(i).getNome());
-
-                if (i < atores.size() - 1)
-                    sb.append(",");
+            if (i < atores.size() - 1) {
+              sb.append(",");
             }
+          }
+        } else {
+          sb.append("Nenhum ator");
         }
-        else
-        {
-            sb.append("Nenhum ator");
-        }
+        sb.append("\n");
 
-        return (sb.toString());
+        bw.write(sb.toString());
+      }
+
+      bw.flush();
+      bw.close();
+
+    } catch (IOException e) {
+      System.out.println("Erro ao atualizar o arquivo");
+      e.printStackTrace();
     }
+    return filme;
+  }
+
 }
