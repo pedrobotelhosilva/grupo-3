@@ -9,6 +9,8 @@ import service.AtorService;
 import utils.ator.AtorUtils;
 import validation.ator.AtorValidation;
 
+import java.util.List;
+
 public final class AtorMenu
 {
   private AtorService atorService;
@@ -62,5 +64,15 @@ public final class AtorMenu
 
     System.out.println("Ator cadastrado com sucesso!");
     return (true);
+  }
+
+  public void listarAtores()
+  {
+    List<Ator> atores = atorService.listarAtores();
+    System.out.println("\n=== LISTA DE ATORES ===");
+    for (Ator a : atores)
+    {
+      System.out.println(a.getNome());
+    }
   }
 }

@@ -1,15 +1,15 @@
-Steven Spielberg;18/12/1946;EUA;Aventura
-Christopher Nolan;30/07/1970;Reino Unido;Ficção Científica
-Quentin Tarantino;27/03/1963;EUA;Violência Estilizada
-Martin Scorsese;17/11/1942;EUA;Drama
-James Cameron;16/08/1954;Canadá;Ação
-Ridley Scott;30/11/1937;Reino Unido;Épico
-Tim Burton;25/08/1958;EUA;Fantasia Sombria
-Peter Jackson;31/10/1961;Nova Zelândia;Fantasia
-Clint Eastwood;31/05/1930;EUA;Drama
-Alfred Hitchcock;13/08/1899;Reino Unido;Suspense
+Steven Spielberg;18/12/1946;EUA
+Christopher Nolan;30/07/1970;Reino Unido
+Quentin Tarantino;27/03/1963;EUA
+Martin Scorsese;17/11/1942;EUA
+James Cameron;16/08/1954;Canadá
+Ridley Scott;30/11/1937;Reino Unido
+Tim Burton;25/08/1958;EUA
+Peter Jackson;31/10/1961;Nova Zelândia
+Clint Eastwood;31/05/1930;EUA
+Alfred Hitchcock;13/08/1899;Reino Unido
 Stanley Kubrick;26/07/1928;EUA;Psicológico
-George Lucas;14/05/1944;EUA;Ficção Científica
-Francis Ford Coppola;07/04/1939;EUA;Drama
-Denis Villeneuve;03/10/1967;Canadá;Sci-Fi
-Greta Gerwig;04/08/1983;EUA;Independente
+George Lucas;14/05/1944;EUA
+Francis Ford Coppola;07/04/1939;EUA
+Denis Villeneuve;03/10/1967;Canadá
+Greta Gerwig;04/08/1983;EUA

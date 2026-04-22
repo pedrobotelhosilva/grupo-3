@@ -1,15 +1,15 @@
-Leonardo DiCaprio;11/11/1974;EUA;
-Brad Pitt;18/12/1963;EUA;
-Angelina Jolie;04/06/1975;EUA;
-Meryl Streep;22/06/1949;EUA;
-Tom Hanks;09/07/1956;EUA;
-Scarlett Johansson;22/11/1984;EUA;
-Robert Downey Jr.;04/04/1965;EUA;
-Natalie Portman;09/06/1981;Israel;
-Johnny Depp;09/06/1963;EUA;
-Emma Stone;06/11/1988;EUA;
-Denzel Washington;28/12/1954;EUA;D
-Will Smith;25/09/1968;EUA;
-Keanu Reeves;02/09/1964;Canadá;
-Jennifer Lawrence;15/08/1990;EUA;
-Chris Hemsworth;11/08/1983;Austrália;
+Leonardo DiCaprio;11/11/1974;EUA
+Brad Pitt;18/12/1963;EUA
+Angelina Jolie;04/06/1975;EUA
+Meryl Streep;22/06/1949;EUA
+Tom Hanks;09/07/1956;EUA
+Scarlett Johansson;22/11/1984;EUA
+Robert Downey Jr.;04/04/1965;EUA
+Natalie Portman;09/06/1981;Israel
+Johnny Depp;09/06/1963;EUA
+Emma Stone;06/11/1988;EUA
+Denzel Washington;28/12/1954;EUA
+Will Smith;25/09/1968;EUA
+Keanu Reeves;02/09/1964;Canadá
+Jennifer Lawrence;15/08/1990;EUA
+Chris Hemsworth;11/08/1983;Austrália

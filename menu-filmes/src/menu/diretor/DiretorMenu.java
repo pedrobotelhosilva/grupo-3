@@ -7,6 +7,8 @@ import service.DiretorService;
 import utils.diretor.DiretorUtils;
 import validation.diretor.DiretorValidation;
 
+import java.util.List;
+
 public final class DiretorMenu
 {
 
@@ -57,9 +59,19 @@ public final class DiretorMenu
     }
 
     Diretor diretor = new Diretor(nome, data, nacionalidade);
-    diretorService.cadastrarDiretor(ator);
+    diretorService.cadastrarDiretor(diretor);
 
     System.out.println("Diretor cadastrado com sucesso!");
     return (true);
+  }
+
+  public void listarDiretores()
+  {
+    List<Diretor> diretores = diretorService.listarDiretores();
+    System.out.println("\n=== LISTA DE DIRETORES ===");
+    for (Diretor d : diretores)
+    {
+      System.out.println(d.getNome());
+    }
   }
 }

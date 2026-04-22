@@ -13,25 +13,23 @@ public class AtorService {
     private List<Ator> atores;
 
     public AtorService() {
-        this.atores = new ArrayList<>();
+        this.atores = AtorFileRepository.buscarTodos();
     }
 
-    public static void cadastrarAtor(Ator ator) {
+    public void cadastrarAtor(Ator ator) {
         if (ator != null) {
             AtorFileRepository.adicionarAtor(ator);
+            this.atores.add(ator);
         }
     }
 
-
-
-
     public List<Ator> listarAtores() {
-        return AtorFileRepository.buscarTodos();
+        return (this.atores);
     }
 
     public Ator buscarAtorPorNome(String nome) {
 
-        for (Ator ator : listarAtores()) {
+        for (Ator ator : atores) {
 
             if (ator.getNome().trim().equalsIgnoreCase(nome.trim())) {
                 return ator;

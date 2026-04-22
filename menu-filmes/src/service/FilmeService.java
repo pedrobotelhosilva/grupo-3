@@ -11,13 +11,13 @@ import repository.FilmeFileRepository;
 
 public class FilmeService {
 
-    public void cadastrarFilme(Filme filme) {
+ public void cadastrarFilme(Filme filme) {
         if (filme != null) {
             FilmeFileRepository.adicionarFilme(filme);
 
         }
     }
-
+  
     public void adicionarFilme() {
 
         Scanner scanner = new Scanner(System.in);
@@ -71,7 +71,6 @@ public class FilmeService {
         return FilmeFileRepository.buscarTodos();
     }
 
-
     public Filme buscarFilmePorNome(String nome) {
         for (Filme filme : FilmeFileRepository.buscarTodos()) {
             if (filme.getNome().equalsIgnoreCase(nome)) {
@@ -115,7 +114,6 @@ public class FilmeService {
 
         System.out.println("Diretor associado e salvo com sucesso!");
     }
-
 
     public void associarAtor(Filme filme, Ator ator) {
 
