@@ -14,23 +14,23 @@ public class DiretorService {
     private List<Diretor> diretores;
 
     public DiretorService() {
-        this.diretores = new ArrayList<>();
+        this.diretores = DiretorFileRepository.buscarTodos();
     }
 
-    public static void cadastrarDiretor(Diretor diretor) {
+    public void cadastrarDiretor(Diretor diretor) {
         if (diretor != null) {
             DiretorFileRepository.adicionarDiretor(diretor);
-
+            this.diretores.add(diretor);
         }
     }
 
     public List<Diretor> listarDiretores() {
-        return DiretorFileRepository.buscarTodos();
+        return (this.diretores);
     }
 
     public Diretor buscarDiretorPorNome(String nome) {
 
-        for (Diretor diretor : listarDiretores()) {
+        for (Diretor diretor : this.diretores) {
 
             if (diretor.getNome().trim().equalsIgnoreCase(nome.trim())) {
                 return diretor;

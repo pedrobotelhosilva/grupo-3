@@ -34,8 +34,15 @@ public class Ator extends Pessoa
 
     public void adicionarFilme(Filme filme)
     {
-        if (filme != null && !this.filmes.contains(filme))
-            this.filmes.add(filme);
+      if (filme == null)
+        return;
+
+      for (Filme f : this.filmes)
+      {
+        if (f.getNome().equalsIgnoreCase(filme.getNome()))
+          return;
+      }
+      this.filmes.add(filme);
     }
 
     public void removerFilme(Filme filme)

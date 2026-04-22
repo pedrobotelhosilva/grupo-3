@@ -26,7 +26,7 @@ public class DiretorFileRepository {
 
                 String[] partes = linha.split(";");
 
-                if (partes.length < 4) {
+                if (partes.length < 3) {
                     System.out.println("Dados incompletos: " + linha);
                     continue;
                 }
@@ -34,9 +34,8 @@ public class DiretorFileRepository {
                 String nome = partes[0];
                 String dataNascimento = partes[1];
                 String nacionalidade = partes[2];
-                String estiloDirecao = partes[3];
 
-                Diretor diretor = new Diretor(nome, dataNascimento, nacionalidade, estiloDirecao);
+                Diretor diretor = new Diretor(nome, dataNascimento, nacionalidade);
 
                 diretores.add(diretor);
             }
@@ -62,7 +61,6 @@ public class DiretorFileRepository {
             sb.append(diretor.getNome()).append(";");
             sb.append(diretor.getDataNascimento()).append(";");
             sb.append(diretor.getNacionalidade()).append(";");
-            sb.append(diretor.getEstiloDirecao()).append(";");
             sb.append("\n");
 
             bw.write(sb.toString());
