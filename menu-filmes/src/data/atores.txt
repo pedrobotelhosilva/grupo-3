@@ -13,5 +13,3 @@ Will Smith;25/09/1968;EUA
 Keanu Reeves;02/09/1964;Canadá
 Jennifer Lawrence;15/08/1990;EUA
 Chris Hemsworth;11/08/1983;Austrália
-Pedro Henrique;12/11/2003;Brasileira;
-Pedro Henrique Botelho Silva;12/11/2003;Brasileira;
