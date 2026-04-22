@@ -17,7 +17,7 @@ public class FilmeService
     {
         this.atorService = atorService;
         this.diretorService = diretorService;
-        filmes = FilmeFileRepository.buscarTodos(atorService, diretorService);
+        this.filmes = FilmeFileRepository.buscarTodos(atorService, diretorService);
     }
 
     public void cadastrarFilme(Filme filme)
@@ -35,12 +35,12 @@ public class FilmeService
         }
 
         FilmeFileRepository.adicionarFilme(filme);
-        filmes.add(filme);
+        this.filmes.add(filme);
     }
 
     public List<Filme> listarFilmes()
     {
-        return (filmes);
+        return (this.filmes);
     }
 
     public Filme buscarFilmePorNome(String nome)
@@ -48,7 +48,7 @@ public class FilmeService
         if (nome == null || nome.isBlank())
             return (null);
 
-        for (Filme filme : filmes)
+        for (Filme filme : this.filmes)
         {
             if (filme.getNome().equalsIgnoreCase(nome))
                 return (filme);
@@ -71,7 +71,7 @@ public class FilmeService
         }
 
         filme.setDiretor(diretor);
-        FilmeFileRepository.atualizarFilme(filme, atorService, diretorService);
+        FilmeFileRepository.atualizarFilme(filme, this.atorService, this.diretorService);
 
         System.out.println("Diretor associado com sucesso!");
     }
@@ -91,7 +91,7 @@ public class FilmeService
         }
 
         filme.adicionarAtor(ator);
-        FilmeFileRepository.atualizarFilme(filme, atorService, diretorService);
+        FilmeFileRepository.atualizarFilme(filme, this.atorService, this.diretorService);
 
         System.out.println("Ator associado com sucesso!");
     }

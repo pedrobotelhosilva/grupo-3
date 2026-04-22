@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import model.Ator;
 import service.AtorService;
+import utils.general.MenuUtils;
 import validation.ator.AtorValidation;
 
 public final class AtorMenu
@@ -20,42 +21,41 @@ public final class AtorMenu
 
     public void exibirMenu()
     {
-        int opcao = -1;
+        int opcao;
 
+        opcao = -1;
         while (opcao != 0)
         {
-            System.out.println("\n=== MENU DE ATORES ===");
-            System.out.println("1 - Cadastrar Ator");
-            System.out.println("2 - Listar Atores");
-            System.out.println("3 - Buscar Ator por Nome");
+            MenuUtils.limparTela();
+            MenuUtils.titulo("MENU DE ATORES");
+            System.out.println("1 - Cadastrar ator");
+            System.out.println("2 - Listar atores");
+            System.out.println("3 - Buscar ator por nome");
             System.out.println("0 - Voltar");
-            System.out.print("Escolha uma opção: ");
+            MenuUtils.separador();
 
-            if (!scanner.hasNextInt())
-            {
-                System.out.println("Digite um número válido.");
-                scanner.nextLine();
-                continue;
-            }
-
-            opcao = scanner.nextInt();
-            scanner.nextLine();
+            opcao = MenuUtils.lerOpcao(this.scanner, "Escolha uma opção: ");
+            MenuUtils.limparTela();
 
             switch (opcao)
             {
                 case 1:
-                    cadastrarAtor();
+                    this.cadastrarAtor();
+                    MenuUtils.pausar(this.scanner);
                     break;
                 case 2:
-                    listarAtores();
+                    this.listarAtores();
+                    MenuUtils.pausar(this.scanner);
                     break;
                 case 3:
-                    buscarAtor();
+                    this.buscarAtor();
+                    MenuUtils.pausar(this.scanner);
                     break;
                 case 0:
                     break;
                 default:
-                    System.out.println("Opção inválida!");
+                    System.out.println("Opção inválida.");
+                    MenuUtils.pausar(this.scanner);
             }
         }
     }
@@ -66,48 +66,47 @@ public final class AtorMenu
         String data;
         String nacionalidade;
 
-        System.out.print("Nome: ");
-        nome = scanner.nextLine();
+        MenuUtils.titulo("CADASTRAR ATOR");
+
+        nome = MenuUtils.lerTexto(this.scanner, "Nome: ");
         if (!AtorValidation.validateNome(nome))
         {
-            System.out.println("Nome inválido!");
+            System.out.println("Nome inválido.");
             return (false);
         }
 
-        if (!AtorValidation.validationNomeExiste(nome, atorService.listarAtores()))
+        if (!AtorValidation.validationNomeExiste(nome, this.atorService.listarAtores()))
         {
-            System.out.println("Já existe um ator com esse nome cadastrado!");
+            System.out.println("Já existe um ator com esse nome cadastrado.");
             return (false);
         }
 
-        System.out.print("Data de nascimento: ");
-        data = scanner.nextLine();
+        data = MenuUtils.lerTexto(this.scanner, "Data de nascimento: ");
         if (!AtorValidation.validateDataNascimento(data))
         {
-            System.out.println("Data de nascimento inválida!");
+            System.out.println("Data de nascimento inválida.");
             return (false);
         }
 
-        System.out.print("Nacionalidade: ");
-        nacionalidade = scanner.nextLine();
+        nacionalidade = MenuUtils.lerTexto(this.scanner, "Nacionalidade: ");
         if (!AtorValidation.validateNacionalidade(nacionalidade))
         {
-            System.out.println("Nacionalidade inválida!");
+            System.out.println("Nacionalidade inválida.");
             return (false);
         }
 
         Ator ator = new Ator(nome, data, nacionalidade);
-        atorService.cadastrarAtor(ator);
+        this.atorService.cadastrarAtor(ator);
 
-        System.out.println("Ator cadastrado com sucesso!");
+        System.out.println("Ator cadastrado com sucesso.");
         return (true);
     }
 
     public void listarAtores()
     {
-        List<Ator> atores = atorService.listarAtores();
+        List<Ator> atores = this.atorService.listarAtores();
 
-        System.out.println("\n=== LISTA DE ATORES ===");
+        MenuUtils.titulo("LISTA DE ATORES");
 
         if (atores.isEmpty())
         {
@@ -115,16 +114,22 @@ public final class AtorMenu
             return;
         }
 
-        for (Ator ator : atores)
-            System.out.println(ator.exibirInformacoes());
+        for (int i = 0; i < atores.size(); i++)
+        {
+            System.out.println((i + 1) + " - " + atores.get(i).exibirInformacoes());
+            MenuUtils.separador();
+        }
     }
 
     public void buscarAtor()
     {
-        System.out.print("Nome do ator: ");
-        String nome = scanner.nextLine();
+        String nome;
+        Ator ator;
 
-        Ator ator = atorService.buscarAtorPorNome(nome);
+        MenuUtils.titulo("BUSCA DE ATOR");
+
+        nome = MenuUtils.lerTexto(this.scanner, "Nome do ator: ");
+        ator = this.atorService.buscarAtorPorNome(nome);
 
         if (ator == null)
         {
@@ -132,7 +137,6 @@ public final class AtorMenu
             return;
         }
 
-        System.out.println("\n=== ATOR ENCONTRADO ===");
         System.out.println(ator.exibirInformacoes());
     }
 }

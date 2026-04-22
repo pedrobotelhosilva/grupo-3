@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import model.Diretor;
 import service.DiretorService;
+import utils.general.MenuUtils;
 import validation.diretor.DiretorValidation;
 
 public final class DiretorMenu
@@ -20,42 +21,41 @@ public final class DiretorMenu
 
     public void exibirMenu()
     {
-        int opcao = -1;
+        int opcao;
 
+        opcao = -1;
         while (opcao != 0)
         {
-            System.out.println("\n=== MENU DE DIRETORES ===");
-            System.out.println("1 - Cadastrar Diretor");
-            System.out.println("2 - Listar Diretores");
-            System.out.println("3 - Buscar Diretor por Nome");
+            MenuUtils.limparTela();
+            MenuUtils.titulo("MENU DE DIRETORES");
+            System.out.println("1 - Cadastrar diretor");
+            System.out.println("2 - Listar diretores");
+            System.out.println("3 - Buscar diretor por nome");
             System.out.println("0 - Voltar");
-            System.out.print("Escolha uma opção: ");
+            MenuUtils.separador();
 
-            if (!scanner.hasNextInt())
-            {
-                System.out.println("Digite um número válido.");
-                scanner.nextLine();
-                continue;
-            }
-
-            opcao = scanner.nextInt();
-            scanner.nextLine();
+            opcao = MenuUtils.lerOpcao(this.scanner, "Escolha uma opção: ");
+            MenuUtils.limparTela();
 
             switch (opcao)
             {
                 case 1:
-                    cadastrarDiretor();
+                    this.cadastrarDiretor();
+                    MenuUtils.pausar(this.scanner);
                     break;
                 case 2:
-                    listarDiretores();
+                    this.listarDiretores();
+                    MenuUtils.pausar(this.scanner);
                     break;
                 case 3:
-                    buscarDiretor();
+                    this.buscarDiretor();
+                    MenuUtils.pausar(this.scanner);
                     break;
                 case 0:
                     break;
                 default:
-                    System.out.println("Opção inválida!");
+                    System.out.println("Opção inválida.");
+                    MenuUtils.pausar(this.scanner);
             }
         }
     }
@@ -66,48 +66,47 @@ public final class DiretorMenu
         String data;
         String nacionalidade;
 
-        System.out.print("Nome: ");
-        nome = scanner.nextLine();
+        MenuUtils.titulo("CADASTRAR DIRETOR");
+
+        nome = MenuUtils.lerTexto(this.scanner, "Nome: ");
         if (!DiretorValidation.validateNome(nome))
         {
-            System.out.println("Nome inválido!");
+            System.out.println("Nome inválido.");
             return (false);
         }
 
-        if (!DiretorValidation.validationNomeExiste(nome, diretorService.listarDiretores()))
+        if (!DiretorValidation.validationNomeExiste(nome, this.diretorService.listarDiretores()))
         {
-            System.out.println("Já existe um diretor com esse nome cadastrado!");
+            System.out.println("Já existe um diretor com esse nome cadastrado.");
             return (false);
         }
 
-        System.out.print("Data de nascimento: ");
-        data = scanner.nextLine();
+        data = MenuUtils.lerTexto(this.scanner, "Data de nascimento: ");
         if (!DiretorValidation.validateDataNascimento(data))
         {
-            System.out.println("Data de nascimento inválida!");
+            System.out.println("Data de nascimento inválida.");
             return (false);
         }
 
-        System.out.print("Nacionalidade: ");
-        nacionalidade = scanner.nextLine();
+        nacionalidade = MenuUtils.lerTexto(this.scanner, "Nacionalidade: ");
         if (!DiretorValidation.validateNacionalidade(nacionalidade))
         {
-            System.out.println("Nacionalidade inválida!");
+            System.out.println("Nacionalidade inválida.");
             return (false);
         }
 
         Diretor diretor = new Diretor(nome, data, nacionalidade);
-        diretorService.cadastrarDiretor(diretor);
+        this.diretorService.cadastrarDiretor(diretor);
 
-        System.out.println("Diretor cadastrado com sucesso!");
+        System.out.println("Diretor cadastrado com sucesso.");
         return (true);
     }
 
     public void listarDiretores()
     {
-        List<Diretor> diretores = diretorService.listarDiretores();
+        List<Diretor> diretores = this.diretorService.listarDiretores();
 
-        System.out.println("\n=== LISTA DE DIRETORES ===");
+        MenuUtils.titulo("LISTA DE DIRETORES");
 
         if (diretores.isEmpty())
         {
@@ -115,16 +114,22 @@ public final class DiretorMenu
             return;
         }
 
-        for (Diretor diretor : diretores)
-            System.out.println(diretor.exibirInformacoes());
+        for (int i = 0; i < diretores.size(); i++)
+        {
+            System.out.println((i + 1) + " - " + diretores.get(i).exibirInformacoes());
+            MenuUtils.separador();
+        }
     }
 
     public void buscarDiretor()
     {
-        System.out.print("Nome do diretor: ");
-        String nome = scanner.nextLine();
+        String nome;
+        Diretor diretor;
 
-        Diretor diretor = diretorService.buscarDiretorPorNome(nome);
+        MenuUtils.titulo("BUSCA DE DIRETOR");
+
+        nome = MenuUtils.lerTexto(this.scanner, "Nome do diretor: ");
+        diretor = this.diretorService.buscarDiretorPorNome(nome);
 
         if (diretor == null)
         {
@@ -132,7 +137,6 @@ public final class DiretorMenu
             return;
         }
 
-        System.out.println("\n=== DIRETOR ENCONTRADO ===");
         System.out.println(diretor.exibirInformacoes());
     }
 }
