@@ -2,9 +2,9 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
-public class Filme {
+public class Filme
+{
     private String nome;
     private String dataLancamento;
     private double orcamento;
@@ -12,7 +12,8 @@ public class Filme {
     private Diretor diretor;
     private List<Ator> atores;
 
-    public Filme(String nome, String dataLancamento, double orcamento, String descricao) {
+    public Filme(String nome, String dataLancamento, double orcamento, String descricao)
+    {
         this.nome = nome;
         this.dataLancamento = dataLancamento;
         this.orcamento = orcamento;
@@ -20,99 +21,143 @@ public class Filme {
         this.atores = new ArrayList<>();
     }
 
-    public Filme(String nome, String data, double orcamento, String descricao, Diretor diretor, List<Ator> atores) {
+    public Filme(String nome, String data, double orcamento, String descricao, Diretor diretor, List<Ator> atores)
+    {
+        this(nome, data, orcamento, descricao);
+        this.setDiretor(diretor);
+        this.setAtores(atores);
+    }
+
+    public String getNome()
+    {
+        return (this.nome);
+    }
+
+    public void setNome(String nome)
+    {
         this.nome = nome;
-        this.dataLancamento = data;
-        this.orcamento = orcamento;
-        this.descricao = descricao;
-        this.diretor = diretor;
-        this.atores = atores != null ? atores : new ArrayList<>();
     }
 
-    public String getNome() {
-        return nome;
+    public String getDataLancamento()
+    {
+        return (this.dataLancamento);
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getDataLancamento() {
-        return dataLancamento;
-    }
-
-    public void setDataLancamento(String dataLancamento) {
+    public void setDataLancamento(String dataLancamento)
+    {
         this.dataLancamento = dataLancamento;
     }
 
-    public double getOrcamento() {
-        return orcamento;
+    public double getOrcamento()
+    {
+        return (this.orcamento);
     }
 
-    public void setOrcamento(double orcamento) {
+    public void setOrcamento(double orcamento)
+    {
         this.orcamento = orcamento;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public String getDescricao()
+    {
+        return (this.descricao);
     }
 
-    public void setDescricao(String descricao) {
+    public void setDescricao(String descricao)
+    {
         this.descricao = descricao;
     }
 
-    public Diretor getDiretor() {
-        return diretor;
+    public Diretor getDiretor()
+    {
+        return (this.diretor);
     }
 
-    public void setDiretor(Diretor diretor) {
+    public void setDiretor(Diretor diretor)
+    {
         this.diretor = diretor;
+
+        if (diretor != null)
+            diretor.adicionarFilme(this);
     }
 
-    public List<Ator> getAtores() {
-        return atores;
+    public List<Ator> getAtores()
+    {
+        return (this.atores);
     }
 
-    public void setAtores(List<Ator> atores) {this.atores = atores;}
+    public void setAtores(List<Ator> atores)
+    {
+        this.atores = new ArrayList<>();
 
-    public void adicionarAtor(Ator ator) {
-        if (ator != null) {
-            atores.add(ator);
+        if (atores == null)
+            return;
+
+        for (Ator ator : atores)
+            this.adicionarAtor(ator);
+    }
+
+    public void adicionarAtor(Ator ator)
+    {
+        if (ator == null)
+            return;
+
+        for (Ator a : this.atores)
+        {
+            if (a.getNome().equalsIgnoreCase(ator.getNome()))
+                return;
+        }
+
+        this.atores.add(ator);
+        ator.adicionarFilme(this);
+    }
+
+    public void removerAtor(Ator ator)
+    {
+        if (ator == null)
+            return;
+
+        for (int i = 0; i < this.atores.size(); i++)
+        {
+            if (this.atores.get(i).getNome().equalsIgnoreCase(ator.getNome()))
+            {
+                this.atores.remove(i);
+                return;
+            }
         }
     }
 
+    public String exibirDetalhes()
+    {
+        String nomeDiretor = (this.diretor != null) ? this.diretor.getNome() : "Não informado";
+        StringBuilder nomesAtores = new StringBuilder();
 
-    public void removerAtor(Ator ator) {
-        atores.remove(ator);
-    }
+        if (this.atores.isEmpty())
+        {
+            nomesAtores.append("Nenhum ator cadastrado");
+        }
+        else
+        {
+            for (int i = 0; i < this.atores.size(); i++)
+            {
+                nomesAtores.append(this.atores.get(i).getNome());
 
-    public String exibirDetalhes() {
-        String nomeDiretor = (diretor != null) ? diretor.getNome() : "Não informado";
-
-        String nomesAtores = "";
-        if (atores.isEmpty()) {
-            nomesAtores = "Nenhum ator cadastrado";
-        } else {
-            for (int i = 0; i < atores.size(); i++) {
-                nomesAtores += atores.get(i).getNome();
-                if (i < atores.size() - 1) {
-                    nomesAtores += ", ";
-                }
+                if (i < this.atores.size() - 1)
+                    nomesAtores.append(", ");
             }
         }
 
-        return "model.Filme: " + nome +
-                "\nData de lançamento: " + dataLancamento +
-                "\nOrçamento: " + orcamento +
-                "\nDescrição: " + descricao +
-                "\nmodel.Diretor: " + nomeDiretor +
-                "\nAtores: " + nomesAtores;
+        return ("Filme: " + this.nome
+            + "\nData de lançamento: " + this.dataLancamento
+            + "\nOrçamento: " + this.orcamento
+            + "\nDescrição: " + this.descricao
+            + "\nDiretor: " + nomeDiretor
+            + "\nAtores: " + nomesAtores);
     }
 
     @Override
-    public String toString() {
-        return "model.Filme: " + nome + " | Lançamento: " + dataLancamento;
+    public String toString()
+    {
+        return ("Filme: " + this.nome + " | Lançamento: " + this.dataLancamento);
     }
-
-
 }
