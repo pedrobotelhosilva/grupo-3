@@ -1,16 +1,16 @@
 Titanic;1997;2.0E8;Romance no navio Titanic;James Cameron;Nenhum ator
-Matrix;1999;6.3E7;Realidade simulada e luta contra máquinas;;Nenhum ator
+Matrix;1999;6.3E7;Realidade simulada e luta contra máquinas;Nenhum ator
 Interestelar;2014;1.65E8;Exploração espacial para salvar a humanidade;Christopher Nolan;Nenhum ator
 Avatar;2009;2.37E8;Conflito em planeta alienígena Pandora;James Cameron;Nenhum ator
 Inception;2010;1.6E8;Roubo de ideias através de sonhos;Christopher Nolan;Nenhum ator
 Gladiador;2000;1.03E8;General romano busca vingança;Ridley Scott;Nenhum ator
-Vingadores Ultimato;2019;3.56E8;Batalha final contra Thanos;;Nenhum ator
-Homem Aranha;2002;1.39E8;Origem do herói Peter Parker;;Nenhum ator
+Vingadores Ultimato;2019;3.56E8;Batalha final contra Thanos;Nenhum ator
+Homem Aranha;2002;1.39E8;Origem do herói Peter Parker;Nenhum ator
 Batman O Cavaleiro das Trevas;2008;1.85E8;Conflito entre Batman e Coringa;Christopher Nolan;Nenhum ator
 Senhor dos Aneis A Sociedade do Anel;2001;9.3E7;Jornada para destruir o anel;Peter Jackson;Nenhum ator
-Harry Potter e a Pedra Filosofal;2001;1.25E8;Início da vida mágica de Harry;;Nenhum ator
+Harry Potter e a Pedra Filosofal;2001;1.25E8;Início da vida mágica de Harry;Nenhum ator
 Jurassic Park;1993;6.3E7;Parque com dinossauros clonados;Steven Spielberg;Nenhum ator
 Star Wars Uma Nova Esperanca;1977;1.1E7;Rebelião contra império galáctico;George Lucas;Nenhum ator
-Pantera Negra;2018;2.0E8;Rei de Wakanda protege seu povo;;Pedro Henrique
+Pantera Negra;2018;2.0E8;Rei de Wakanda protege seu povo;Ryan Coogler;Nenhum ator
 Duna;2021;1.65E8;Disputa por planeta desértico e especiaria;Denis Villeneuve;Nenhum ator
-Orgulho e Preconceito;2005;2.8E7;Romance adaptado do Livro de Jane Austin;;Nenhum ator
+Orgulho e Preconceito;2005;2.8E7;Romance adaptado do Livro de Jane Austin;Nenhum ator

@@ -93,7 +93,7 @@ public class FilmeMenu
         MenuUtils.titulo("CADASTRAR FILME");
 
         nome = MenuUtils.lerTexto(this.scanner, "Nome do filme: ");
-        dataLancamento = MenuUtils.lerTexto(this.scanner, "Data de lançamento: ");
+        dataLancamento = MenuUtils.lerTexto(this.scanner, "Data de lançamento (xx/xx/xxxx): ");
         orcamento = MenuUtils.lerDouble(this.scanner, "Orçamento: ");
         descricao = MenuUtils.lerTexto(this.scanner, "Descrição: ");
         nomeDiretor = MenuUtils.lerTexto(this.scanner, "Nome do diretor: ");

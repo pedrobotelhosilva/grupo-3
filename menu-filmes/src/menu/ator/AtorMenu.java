@@ -81,14 +81,14 @@ public final class AtorMenu
             return (false);
         }
 
-        data = MenuUtils.lerTexto(this.scanner, "Data de nascimento: ");
+        data = MenuUtils.lerTexto(this.scanner, "Data de nascimento (xx/xx/xxxx): ");
         if (!AtorValidation.validateDataNascimento(data))
         {
             System.out.println("Data de nascimento inválida.");
             return (false);
         }
 
-        nacionalidade = MenuUtils.lerTexto(this.scanner, "Nacionalidade: ");
+        nacionalidade = MenuUtils.lerTexto(this.scanner, "Nacionalidade (Por Extenso): ");
         if (!AtorValidation.validateNacionalidade(nacionalidade))
         {
             System.out.println("Nacionalidade inválida.");
