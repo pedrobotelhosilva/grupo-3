@@ -3,6 +3,7 @@ package menu.ator;
 import java.util.List;
 import java.util.Scanner;
 
+import exceptions.AtorNaoEncontradoException;
 import model.Ator;
 import service.AtorService;
 import utils.general.MenuUtils;
@@ -129,14 +130,15 @@ public final class AtorMenu
         MenuUtils.titulo("BUSCA DE ATOR");
 
         nome = MenuUtils.lerTexto(this.scanner, "Nome do ator: ");
-        ator = this.atorService.buscarAtorPorNome(nome);
 
-        if (ator == null)
+        try
         {
-            System.out.println("Ator não encontrado.");
-            return;
+            ator = this.atorService.buscarAtorPorNome(nome);
+            System.out.println(ator.exibirInformacoes());
         }
-
-        System.out.println(ator.exibirInformacoes());
+        catch (AtorNaoEncontradoException e)
+        {
+            System.out.println(e.getMessage());
+        }
     }
 }

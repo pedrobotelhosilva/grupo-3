@@ -1,11 +1,12 @@
 package service;
 
-import java.util.List;
-
+import exceptions.FilmeNaoEncontradoException;
 import model.Ator;
 import model.Diretor;
 import model.Filme;
 import repository.FilmeFileRepository;
+
+import java.util.List;
 
 public class FilmeService
 {
@@ -28,7 +29,7 @@ public class FilmeService
             return;
         }
 
-        if (buscarFilmePorNome(filme.getNome()) != null)
+        if (this.existeFilmeComNome(filme.getNome()))
         {
             System.out.println("Já existe um filme com esse nome.");
             return;
@@ -46,24 +47,19 @@ public class FilmeService
     public Filme buscarFilmePorNome(String nome)
     {
         if (nome == null || nome.isBlank())
-            return (null);
+            throw new FilmeNaoEncontradoException("Filme não encontrado.");
 
         for (Filme filme : this.filmes)
         {
             if (filme.getNome().equalsIgnoreCase(nome))
                 return (filme);
         }
-        return (null);
+
+        throw new FilmeNaoEncontradoException("Filme não encontrado.");
     }
 
     public void associarDiretor(Filme filme, Diretor diretor)
     {
-        if (filme == null)
-        {
-            System.out.println("Filme não encontrado.");
-            return;
-        }
-
         if (diretor == null)
         {
             System.out.println("Diretor não encontrado.");
@@ -78,12 +74,6 @@ public class FilmeService
 
     public void associarAtor(Filme filme, Ator ator)
     {
-        if (filme == null)
-        {
-            System.out.println("Filme não encontrado.");
-            return;
-        }
-
         if (ator == null)
         {
             System.out.println("Ator não encontrado.");
@@ -94,5 +84,15 @@ public class FilmeService
         FilmeFileRepository.atualizarFilme(filme, this.atorService, this.diretorService);
 
         System.out.println("Ator associado com sucesso!");
+    }
+
+    private boolean existeFilmeComNome(String nome)
+    {
+        for (Filme filme : this.filmes)
+        {
+            if (filme.getNome().equalsIgnoreCase(nome))
+                return (true);
+        }
+        return (false);
     }
 }

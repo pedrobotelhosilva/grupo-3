@@ -1,4 +1,9 @@
 package exceptions;
 
-public class AtorNaoEncontradoException {
+public class AtorNaoEncontradoException extends CatalogoException
+{
+    public AtorNaoEncontradoException(String message)
+    {
+        super(message);
+    }
 }

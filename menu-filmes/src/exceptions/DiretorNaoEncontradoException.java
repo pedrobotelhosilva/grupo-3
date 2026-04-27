@@ -1,4 +1,9 @@
 package exceptions;
 
-public class DiretorNaoEncontradoException {
+public class DiretorNaoEncontradoException extends CatalogoException
+{
+    public DiretorNaoEncontradoException(String message)
+    {
+        super(message);
+    }
 }

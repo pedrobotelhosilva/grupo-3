@@ -3,6 +3,7 @@ package menu.diretor;
 import java.util.List;
 import java.util.Scanner;
 
+import exceptions.DiretorNaoEncontradoException;
 import model.Diretor;
 import service.DiretorService;
 import utils.general.MenuUtils;
@@ -129,14 +130,15 @@ public final class DiretorMenu
         MenuUtils.titulo("BUSCA DE DIRETOR");
 
         nome = MenuUtils.lerTexto(this.scanner, "Nome do diretor: ");
-        diretor = this.diretorService.buscarDiretorPorNome(nome);
 
-        if (diretor == null)
+        try
         {
-            System.out.println("Diretor não encontrado.");
-            return;
+            diretor = this.diretorService.buscarDiretorPorNome(nome);
+            System.out.println(diretor.exibirInformacoes());
         }
-
-        System.out.println(diretor.exibirInformacoes());
+        catch (DiretorNaoEncontradoException e)
+        {
+            System.out.println(e.getMessage());
+        }
     }
 }
